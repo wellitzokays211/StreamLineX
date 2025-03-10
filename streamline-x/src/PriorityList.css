@@ -153,3 +153,51 @@
     height: 18px;
     accent-color: #4361ee;
   }
+
+  /* Additional styles for Development Plan */
+.delete-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-button:hover {
+  background-color: #d32f2f;
+}
+
+.error-message {
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.plan-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.plan-header h1 {
+  margin: 0;
+}
+
+.approval-status {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.approval-status svg {
+  margin-right: 8px;
+}

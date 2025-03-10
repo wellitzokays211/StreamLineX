@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './PriorityList.css';
+import DevelopmentPlan from './DevelopmentPlan'; // Import the new component
 
 // You can reuse the same icon components from Dashboard.jsx or import them
 const BackIcon = () => (
@@ -9,6 +10,9 @@ const BackIcon = () => (
 );
 
 const PriorityList = ({ onBack, currentBudget }) => {
+  // State to control whether to show the development plan
+  const [showDevelopmentPlan, setShowDevelopmentPlan] = useState(false);
+  
   // Sample activities data (in a real app, this would come from an API or props)
   const [activities, setActivities] = useState([
     { id: 'AC001', description: 'Roof Construction of ABC M.V.', district: 'Kandy', budget: 550000.00, selected: false },
@@ -20,6 +24,9 @@ const PriorityList = ({ onBack, currentBudget }) => {
 
   // State for tracking the total budget of selected activities
   const [selectedBudget, setSelectedBudget] = useState(0);
+  
+  // State for error message
+  const [errorMessage, setErrorMessage] = useState('');
 
   // Calculate selected budget whenever activities change
   useEffect(() => {
@@ -37,7 +44,42 @@ const PriorityList = ({ onBack, currentBudget }) => {
         ? { ...activity, selected: !activity.selected } 
         : activity
     ));
+    setErrorMessage('');
   };
+  
+  // Handle Generate Plan button click
+  const handleGeneratePlan = () => {
+    const selectedItems = activities.filter(activity => activity.selected);
+    
+    if (selectedItems.length === 0) {
+      setErrorMessage('Please select at least one activity.');
+      return;
+    }
+    
+    if (selectedBudget > currentBudget) {
+      setErrorMessage('Your selected budget exceeds the estimated annual budget. Please adjust your selection.');
+      return;
+    }
+    
+    setShowDevelopmentPlan(true);
+  };
+  
+  // Go back to priority list from development plan
+  const handleBackFromPlan = () => {
+    setShowDevelopmentPlan(false);
+  };
+  
+  // Render development plan if showDevelopmentPlan is true
+  if (showDevelopmentPlan) {
+    return (
+      <DevelopmentPlan 
+        onBack={handleBackFromPlan}
+        selectedActivities={activities.filter(activity => activity.selected)}
+        currentBudget={currentBudget}
+        selectedBudget={selectedBudget}
+      />
+    );
+  }
 
   return (
     <div className="priority-list-container">
@@ -66,6 +108,12 @@ const PriorityList = ({ onBack, currentBudget }) => {
           </div>
           
           <h1>View Priority List</h1>
+          
+          {errorMessage && (
+            <div className="error-message" style={{ color: 'red', marginBottom: '10px' }}>
+              {errorMessage}
+            </div>
+          )}
           
           <div className="priority-table-container">
             <table className="priority-table">
@@ -113,7 +161,12 @@ const PriorityList = ({ onBack, currentBudget }) => {
               <div className="budget-value">Rs. {selectedBudget.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
             </div>
             
-            <button className="generate-plan-button">Generate Plan</button>
+            <button 
+              className="generate-plan-button"
+              onClick={handleGeneratePlan}
+            >
+              Generate Plan
+            </button>
           </div>
         </div>
       </div>
