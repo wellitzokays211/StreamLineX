@@ -11,12 +11,6 @@
     padding: 20px;
   }
   
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 40px;
-  }
-  
   .main-content {
     flex: 1;
     background-color: #f5f7fa;
@@ -29,16 +23,6 @@
     padding: 15px 30px;
     background-color: #4361ee;
     color: white;
-  }
-  
-  .notification-icon, .message-icon, .profile {
-    margin-left: 20px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .profile span {
-    margin-left: 10px;
   }
   
   .content {

@@ -3,7 +3,7 @@ import './BudgetUpdate.css';
 
 // Icons
 const BackIcon = () => (
-  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
     <path d="M20,11H7.83l5.59-5.59L12,4l-8,8l8,8l1.41-1.41L7.83,13H20V11z"/>
   </svg>
 );
@@ -58,7 +58,7 @@ const BudgetUpdate = ({ onBack, currentBudget, onUpdateBudget }) => {
           <div className="back-nav">
             <button className="back-button" onClick={onBack}>
               <BackIcon />
-              <span>Back to Dashboard</span>
+              <span>Back</span>
             </button>
           </div>
           

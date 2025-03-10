@@ -1,0 +1,34 @@
+/*Stylings for Development Officer Window*/
+
+.sidebar {
+    background-color: #6c7ae0;
+    color: white;
+  }
+
+  .header {
+    background-color: #6c7ae0;
+    color: white;
+  }
+
+  .btn-primary {
+    background-color: #6c7ae0;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #5a5fd1;
+  }
+  
+  .btn-secondary {
+    background-color: #e8eaff;
+    color: #6c7ae0;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #d0d4ff;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: #6c7ae0;
+  }

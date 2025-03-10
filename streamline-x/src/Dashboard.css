@@ -4,59 +4,6 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   
-  .sidebar {
-    width: 120px;
-    background-color: #6c7ae0;
-    color: white;
-    padding: 20px 0;
-  }
-  
-  .logo {
-    padding: 0 10px;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .main-content {
-    flex: 1;
-    background-color: #f5f5f5;
-    overflow-y: auto;
-  }
-  
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 15px 20px;
-    background-color: #6c7ae0;
-    color: white;
-  }
-  
-  .notification-icon, .message-icon {
-    margin-right: 20px;
-    cursor: pointer;
-  }
-  
-  .profile {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .profile span {
-    margin-left: 8px;
-  }
-  
-  .content {
-    padding: 20px;
-  }
-  
-  h1 {
-    color: #555;
-    font-weight: normal;
-    margin-bottom: 20px;
-  }
-  
   .stats-row, .actions-row {
     display: flex;
     gap: 20px;

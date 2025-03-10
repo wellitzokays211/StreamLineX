@@ -5,74 +5,10 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   
-  .sidebar {
-    width: 120px;
-    background-color: #6c7ae0;
-    color: white;
-    padding: 20px 0;
-  }
-  
-  .logo {
-    padding: 0 10px;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .main-content {
-    flex: 1;
-    background-color: #f5f5f5;
-    overflow-y: auto;
-  }
-  
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 15px 20px;
-    background-color: #6c7ae0;
-    color: white;
-  }
-  
-  .notification-icon, .message-icon {
-    margin-right: 20px;
-    cursor: pointer;
-  }
-  
-  .profile {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .profile span {
-    margin-left: 8px;
-  }
-  
-  .content {
-    padding: 20px;
-  }
-  
   .back-nav {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-  }
-  
-  .back-button {
-    display: flex;
-    align-items: center;
-    background-color: white;
-    border: none;
-    border-radius: 20px;
-    padding: 8px 15px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-right: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .back-button svg {
-    margin-right: 5px;
   }
   
   .budget-update-card {

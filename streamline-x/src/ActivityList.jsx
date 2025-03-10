@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+
+import './CommonStyling.css';
+import './DevOfficerStyling.css';
 import './ActivityList.css';
+
 
 // Back Icon component
 const BackIcon = () => (

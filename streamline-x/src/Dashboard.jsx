@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
+
+import './CommonStyling.css';
+import './DevOfficerStyling.css';
 import './Dashboard.css';
+
 import ActivityList from './ActivityList';
 import AddActivity from './AddActivity';
 import BudgetUpdate from './BudgetUpdate';
 import PriorityList from './PriorityList'; // Import PriorityList component
+import ApprovedActivities from './ApprovedActivities';
+import PendingActivities from './PendingActivites';
 
 // Icons components (same as before)
 const BudgetIcon = () => (
@@ -81,6 +87,16 @@ const App = () => {
     setCurrentScreen(screen);
   };
 
+  // Handle navigation to Approved Activities
+  const navigateToApprovedActivities = () => {
+    setCurrentScreen('approvedActivities');
+  };
+
+  // Handle navigation to Pending Activities
+  const navigateToPendingActivities = () => {
+    setCurrentScreen('pendingActivities');
+  };
+
   // Handle budget update
   const handleUpdateBudget = (newBudget) => {
     setBudget(parseFloat(newBudget));
@@ -98,6 +114,8 @@ const App = () => {
             onViewActivityList={() => navigateTo('activityList')}
             onAddActivity={() => navigateTo('addActivity')}
             onViewPriorityList={() => navigateTo('priorityList')}
+            onViewApprovedActivities={() => navigateToApprovedActivities()}
+            onViewPendingActivities={() => navigateToPendingActivities()}
           />
         );
       case 'activityList':
@@ -114,7 +132,14 @@ const App = () => {
         );
       case 'priorityList':
         return <PriorityList onBack={() => navigateTo('dashboard')} currentBudget={budget} />;
-      default:
+        
+      case 'approvedActivities':
+        return <ApprovedActivities onBack={() => navigateTo('dashboard')} />;
+
+      case 'pendingActivities':
+        return <PendingActivities onBack={() => navigateTo('dashboard')} />;
+      
+        default:
         return <Dashboard />;
     }
   };
@@ -123,7 +148,16 @@ const App = () => {
 };
 
 // Dashboard component (with navigation props)
-const Dashboard = ({ onChangeBudget, currentBudget = 3000000.00, onViewActivityList, onAddActivity, onViewPriorityList }) => {
+const Dashboard = ({ 
+  onChangeBudget, 
+  currentBudget = 3000000.00, 
+  onViewActivityList, 
+  onAddActivity, 
+  onViewPriorityList,
+  onViewApprovedActivities,
+  onViewPendingActivities
+}) => {
+
   return (
     <div className="dashboard-container">
       <div className="sidebar">
@@ -172,7 +206,7 @@ const Dashboard = ({ onChangeBudget, currentBudget = 3000000.00, onViewActivityL
               <div className="stat-content">
                 <div>
                   <div className="stat-title">Approved</div>
-                  <div className="stat-value">60</div>
+                  <div className="stat-value" onClick={onViewApprovedActivities} style={{cursor: 'pointer'}}>60</div>
                 </div>
                 <div className="stat-icon approved-icon">
                   <ApprovedIcon />
@@ -184,7 +218,7 @@ const Dashboard = ({ onChangeBudget, currentBudget = 3000000.00, onViewActivityL
               <div className="stat-content">
                 <div>
                   <div className="stat-title">Pending</div>
-                  <div className="stat-value">40</div>
+                  <div className="stat-value" onClick={onViewPendingActivities} style={{cursor: 'pointer'}}>40</div>
                 </div>
                 <div className="stat-icon pending-icon">
                   <PendingIcon />
