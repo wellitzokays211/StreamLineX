@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-import Dashboard from './Dashboard';
-import PriorityList from './PriorityList';
-import ApprovedActivities from './ApprovedActivities';
-import ViewActivity from './ViewActivity';
+
+import Dashboard from './dev_officer/Dashboard';
+import PriorityList from './dev_officer/PriorityList';
+import ApprovedActivities from './dev_officer/ApprovedActivities';
+import ViewActivity from './dev_officer/ViewActivity';
+import AssignActivity from './dev_officer/AssignActivity';
+import RequestApproval from './dev_officer/RequestApproval';
+import PendingActivities from './dev_officer/PendingActivities';
+
 import './App.css';
+import Header, { Sidebar } from "./Header";
 
 function App() {
   const [currentView, setCurrentView] = useState('dashboard');
@@ -58,39 +64,75 @@ function App() {
 
   // Handler for viewing pending activities
   const handleViewPendingActivities = () => {
-    alert('View Pending Activities clicked!');
+    setCurrentView('pendingActivities');
+  };
+
+  // Handler for assign activity
+  const handleAssignActivity = () => {
+    setCurrentView('assignActivity');
+  };
+
+  // Handler for request approval
+  const handleRequestApprovalFromPending = (activity) => {
+    setSelectedActivity(activity);
+    setCurrentView('requestApproval');
   };
 
   // Render the current view
   return (
-    <div className="app">
-      {currentView === 'dashboard' ? (
-        <Dashboard 
-          onChangeBudget={handleChangeBudget}
-          currentBudget={currentBudget}
-          onViewActivityList={handleViewActivityList}
-          onViewPriorityList={handleViewPriorityList}
-          onAddActivity={handleAddActivity}
-          onViewApprovedActivities={handleViewApprovedActivities}
-          onViewPendingActivities={handleViewPendingActivities}
-          onViewActivity={handleViewActivity}
-        />
-      ) : currentView === 'priorityList' ? (
-        <PriorityList 
-          onBack={handleBackToDashboard}
-          currentBudget={currentBudget}
-        />
-      ) : currentView === 'approvedActivities' ? (
-        <ApprovedActivities 
-          onBack={handleBackToDashboard}
-          onViewActivity={handleViewActivity}
-        />
-      ) : currentView === 'viewActivity' ? (
-        <ViewActivity 
-          activity={selectedActivity}
-          onBack={handleBackToApprovedActivities}
-        />
-      ) : null}
+    <div className="app-container">
+        <Sidebar />
+        <div className="main-content">
+          <Header />
+          <div className="content-wrapper">
+            {currentView === 'dashboard' ? (
+              <Dashboard 
+              onChangeBudget={handleChangeBudget}
+              currentBudget={currentBudget}
+              onViewActivityList={handleViewActivityList}
+              onViewPriorityList={handleViewPriorityList}
+              onAddActivity={handleAddActivity}
+              onViewApprovedActivities={handleViewApprovedActivities}
+              onViewPendingActivities={handleViewPendingActivities}
+              onAssignActivity={handleAssignActivity}
+              onRequestApproval={handleRequestApprovalFromPending}
+            />
+          ) : currentView === 'priorityList' ? (
+            <PriorityList 
+              onBack={handleBackToDashboard}
+              currentBudget={currentBudget}
+            />
+          ) : currentView === 'approvedActivities' ? (
+            <ApprovedActivities 
+              onBack={handleBackToDashboard}
+              onViewActivity={handleViewActivity}
+            />
+          ) : currentView === 'viewActivity' ? (
+            <ViewActivity 
+              activity={selectedActivity}
+              onBack={handleBackToApprovedActivities}
+            />
+          ) : currentView === 'assignActivity' ? (
+            <AssignActivity 
+              onBack={handleBackToDashboard}
+            />
+          ) : currentView === 'requestApproval' ? (
+            <RequestApproval 
+              onBack={handleBackToDashboard}
+            />
+          ) : currentView === 'pendingActivities' ? (
+            <PendingActivities 
+              onBack={handleBackToDashboard}
+              onRequestApproval={handleRequestApprovalFromPending}  // Use this name consistently
+            />
+          ) : currentView === 'requestApproval' ? (
+            <RequestApproval 
+              onBack={handleBackToDashboard}
+              activity={selectedActivity}
+            />
+          ) : null}
+        </div>
+      </div>
     </div>
   );
 }

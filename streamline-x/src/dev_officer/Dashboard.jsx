@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import './CommonStyling.css';
+import '../CommonStyling.css';
 import './DevOfficerStyling.css';
 import './Dashboard.css';
 
@@ -9,7 +9,8 @@ import AddActivity from './AddActivity';
 import BudgetUpdate from './BudgetUpdate';
 import PriorityList from './PriorityList'; // Import PriorityList component
 import ApprovedActivities from './ApprovedActivities';
-import PendingActivities from './PendingActivites';
+import PendingActivities from './PendingActivities';
+import AssignActivity from './AssignActivity';
 
 // Icons components (same as before)
 const BudgetIcon = () => (
@@ -60,24 +61,6 @@ const AssignIcon = () => (
   </svg>
 );
 
-const NotificationIcon = () => (
-  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-    <path d="M12,22c1.1,0,2-0.9,2-2h-4C10,21.1,10.9,22,12,22z M18,16v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-0.83-0.67-1.5-1.5-1.5S10.5,3.17,10.5,4v0.68C7.64,5.36,6,7.92,6,11v5l-2,2v1h16v-1L18,16z"/>
-  </svg>
-);
-
-const MessageIcon = () => (
-  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-    <path d="M20,2H4C2.9,2,2,2.9,2,4v18l4-4h14c1.1,0,2-0.9,2-2V4C22,2.9,21.1,2,20,2z M18,14H6v-2h12V14z M18,11H6V9h12V11z M18,8H6V6h12V8z"/>
-  </svg>
-);
-
-const ProfileIcon = () => (
-  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-    <path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,5c1.66,0,3,1.34,3,3s-1.34,3-3,3s-3-1.34-3-3S10.34,5,12,5z M12,19.2c-2.5,0-4.71-1.28-6-3.22c0.03-1.99,4-3.08,6-3.08c1.99,0,5.97,1.09,6,3.08C16.71,17.92,14.5,19.2,12,19.2z"/>
-  </svg>
-);
-
 const App = () => {
   const [currentScreen, setCurrentScreen] = useState('dashboard');
   const [budget, setBudget] = useState(3000000.00);
@@ -95,6 +78,11 @@ const App = () => {
   // Handle navigation to Pending Activities
   const navigateToPendingActivities = () => {
     setCurrentScreen('pendingActivities');
+  };
+
+  // Handle navigation to Assign Activity
+  const navigateToAssignActivity = () => {
+    setCurrentScreen('assignActivity');
   };
 
   // Handle budget update
@@ -116,6 +104,7 @@ const App = () => {
             onViewPriorityList={() => navigateTo('priorityList')}
             onViewApprovedActivities={() => navigateToApprovedActivities()}
             onViewPendingActivities={() => navigateToPendingActivities()}
+            onAssignActivity={() => navigateToAssignActivity()}
           />
         );
       case 'activityList':
@@ -139,7 +128,10 @@ const App = () => {
       case 'pendingActivities':
         return <PendingActivities onBack={() => navigateTo('dashboard')} />;
       
-        default:
+      case 'assignActivity':
+        return <AssignActivity onBack={() => navigateTo('dashboard')} />;
+      
+      default:
         return <Dashboard />;
     }
   };
@@ -155,119 +147,101 @@ const Dashboard = ({
   onAddActivity, 
   onViewPriorityList,
   onViewApprovedActivities,
-  onViewPendingActivities
-}) => {
+  onViewPendingActivities,
+  onAssignActivity,
+  }) => {
 
   return (
-    <div className="dashboard-container">
-      <div className="sidebar">
-        <div className="logo">StreamLineX</div>
-      </div>
-      
-      <div className="main-content">
-        <div className="header">
-          <div className="notification-icon">
-            <NotificationIcon />
+        
+        
+    <div className="content">
+      <h1>Dashboard</h1>
+          
+      <div className="stats-row">
+        <div className="stat-card">
+          <div className="stat-content">
+              <div>
+                <div className="stat-title">Estimated Annual Budget</div>
+                <div className="stat-value">
+                  Rs. {currentBudget.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </div>
+                <div className="stat-action">
+                  <a href="#" className="change-budget" onClick={(e) => {
+                    e.preventDefault();
+                    onChangeBudget();
+                  }}>Change Budget</a>
+                </div>
+              </div>
+              <div className="stat-icon budget-icon">
+                <BudgetIcon />
+              </div>
+            </div>
           </div>
-          <div className="message-icon">
-            <MessageIcon />
+          
+          <div className="stat-card">
+            <div className="stat-content">
+              <div>
+                <div className="stat-title">Approved</div>
+                <div className="stat-value" onClick={onViewApprovedActivities} style={{cursor: 'pointer'}}>60</div>
+              </div>
+              <div className="stat-icon approved-icon">
+                <ApprovedIcon />
+              </div>
+            </div>
           </div>
-          <div className="profile">
-            <ProfileIcon />
-            <span>D.O. Peter</span>
+          
+          <div className="stat-card">
+            <div className="stat-content">
+              <div>
+                <div className="stat-title">Pending</div>
+                <div className="stat-value" onClick={onViewPendingActivities} style={{cursor: 'pointer'}}>40</div>
+              </div>
+              <div className="stat-icon pending-icon">
+                <PendingIcon />
+              </div>
+            </div>
+          </div>
+        </div>
+          
+        <div className="actions-row">
+          <div className="action-card">
+            <button className="action-button" onClick={onViewActivityList}>
+              <span>View Activity List</span>
+              <ActivityIcon />
+            </button>
+          </div>
+            
+          <div className="action-card">
+            <button className="action-button" onClick={onViewPriorityList}>
+              <span>View Priority List</span>
+              <PriorityIcon />
+            </button>
           </div>
         </div>
         
-        <div className="content">
-          <h1>Dashboard</h1>
-          
-          <div className="stats-row">
-            <div className="stat-card">
-              <div className="stat-content">
-                <div>
-                  <div className="stat-title">Estimated Annual Budget</div>
-                  <div className="stat-value">
-                    Rs. {currentBudget.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                  </div>
-                  <div className="stat-action">
-                    <a href="#" className="change-budget" onClick={(e) => {
-                      e.preventDefault();
-                      onChangeBudget();
-                    }}>Change Budget</a>
-                  </div>
-                </div>
-                <div className="stat-icon budget-icon">
-                  <BudgetIcon />
-                </div>
-              </div>
-            </div>
-            
-            <div className="stat-card">
-              <div className="stat-content">
-                <div>
-                  <div className="stat-title">Approved</div>
-                  <div className="stat-value" onClick={onViewApprovedActivities} style={{cursor: 'pointer'}}>60</div>
-                </div>
-                <div className="stat-icon approved-icon">
-                  <ApprovedIcon />
-                </div>
-              </div>
-            </div>
-            
-            <div className="stat-card">
-              <div className="stat-content">
-                <div>
-                  <div className="stat-title">Pending</div>
-                  <div className="stat-value" onClick={onViewPendingActivities} style={{cursor: 'pointer'}}>40</div>
-                </div>
-                <div className="stat-icon pending-icon">
-                  <PendingIcon />
-                </div>
-              </div>
-            </div>
+        <div className="actions-row">
+          <div className="action-card">
+            <button className="action-button">
+              <span>View Annual Development Plan</span>
+              <PlanIcon />
+            </button>
           </div>
           
-          <div className="actions-row">
-            <div className="action-card">
-              <button className="action-button" onClick={onViewActivityList}>
-                <span>View Activity List</span>
-                <ActivityIcon />
-              </button>
-            </div>
-            
-            <div className="action-card">
-              <button className="action-button" onClick={onViewPriorityList}>
-                <span>View Priority List</span>
-                <PriorityIcon />
-              </button>
-            </div>
+          <div className="action-card blue">
+            <button className="action-button blue" onClick={onAddActivity}>
+              <span>Add Activity</span>
+              <AddIcon />
+            </button>
           </div>
-          
-          <div className="actions-row">
-            <div className="action-card">
-              <button className="action-button">
-                <span>View Annual Development Plan</span>
-                <PlanIcon />
-              </button>
-            </div>
             
-            <div className="action-card blue">
-              <button className="action-button blue" onClick={onAddActivity}>
-                <span>Add Activity</span>
-                <AddIcon />
-              </button>
-            </div>
-            
-            <div className="action-card blue">
-              <button className="action-button blue">
-                <span>Assign Activity</span>
-                <AssignIcon />
-              </button>
-            </div>
+          <div className="action-card blue">
+            <button className="action-button blue" onClick={onAssignActivity}>
+              <span>Assign Activity</span>
+              <AssignIcon />
+            </button>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

@@ -17,6 +17,7 @@
   .app-container {
     display: flex;
     height: 100vh;
+    width: 100%;
   }
   
   .sidebar {
@@ -24,6 +25,14 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    color: white;
+    margin: 0;
+    border-right: none;
+    box-sizing: border-box;
   }
   
   .logo {
@@ -35,17 +44,27 @@
   
   .main-content {
     flex: 1;
-    background-color: #f5f5f5;
-    overflow-y: auto;
+    margin-left: 240px; /* Match sidebar width */
+    width: calc(100% - 240px);
     display: flex;
     flex-direction: column;
-  }
+    margin-top: 0;
+    padding-top: 0;
+}
   
   .header {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     padding: 15px 20px;
+    color: white;
+    width: 100%;
+  }
+  
+  .header-icons {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Push icons to the right */
   }
   
   .notification-icon, 
@@ -56,7 +75,12 @@
     cursor: pointer;
     margin-left: 20px;
   }
-  
+  .content-wrapper {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+  }
+
   .profile span {
     margin-left: 10px;
   }

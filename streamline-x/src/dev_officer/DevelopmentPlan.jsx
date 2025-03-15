@@ -72,23 +72,8 @@ const DevelopmentPlan = ({ onBack, selectedActivities, currentBudget, selectedBu
   
   return (
     <div className="priority-list-container">
-      <div className="sidebar">
-        <div className="logo">StreamLineX</div>
-      </div>
       
       <div className="main-content">
-        <div className="header">
-          <div className="notification-icon">
-            {/* Notification Icon */}
-          </div>
-          <div className="message-icon">
-            {/* Message Icon */}
-          </div>
-          <div className="profile">
-            {/* Profile Icon */}
-            <span>D.O. Peter</span>
-          </div>
-        </div>
         
         <div className="content">
           <div className="back-button" onClick={onBack}>
