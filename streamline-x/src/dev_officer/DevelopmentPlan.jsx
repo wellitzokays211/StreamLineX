@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './PriorityList.css'; // Reusing existing styles
+import { BackButton } from '../Header'; // Import the reusable BackButton
+
 
 // You can reuse the same icon components
 const BackIcon = () => (
@@ -72,14 +74,10 @@ const DevelopmentPlan = ({ onBack, selectedActivities, currentBudget, selectedBu
   
   return (
     <div className="priority-list-container">
-      
-      <div className="main-content">
         
         <div className="content">
-          <div className="back-button" onClick={onBack}>
-            <BackIcon />
-            <span>Back</span>
-          </div>
+          {/* reusable BackButton */}
+          <BackButton onClick={onBack} text="Back" />
           
           <div className="plan-header">
             <h1>View Development Plan</h1>
@@ -167,7 +165,6 @@ const DevelopmentPlan = ({ onBack, selectedActivities, currentBudget, selectedBu
             </button>
           </div>
         </div>
-      </div>
     </div>
   );
 };

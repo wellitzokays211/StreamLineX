@@ -4,11 +4,8 @@ import '../CommonStyling.css';
 import './DevOfficerStyling.css';
 import './ApprovedActivities.css';
 
-const BackIcon = () => (
-    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-      <path d="M20,11H7.83l5.59-5.59L12,4l-8,8l8,8l1.41-1.41L7.83,13H20V11z"/>
-    </svg>
-  );
+import { BackButton } from '../Header'; // Import the reusable BackButton component
+
 
 const PendingActivities = ({ onBack, onRequestApproval }) => {
   // Sample data for pending activities
@@ -24,15 +21,9 @@ const PendingActivities = ({ onBack, onRequestApproval }) => {
   };
 
   return (
-    <div className="approved-activities-container">
-      
-      <div className="main-content">
-        
-        <div className="content">
-            <div className="back-button" onClick={onBack}>
-                <BackIcon />
-                <span>Back</span>
-            </div>
+           <div className="content">
+            {/* reusable BackButton */}
+            <BackButton onClick={onBack} text="Back" />
             
             <h1>Pending Activities</h1>
           <div></div>
@@ -68,8 +59,7 @@ const PendingActivities = ({ onBack, onRequestApproval }) => {
             </table>
           </div>
         </div>
-      </div>
-    </div>
+      
   );
 };
 

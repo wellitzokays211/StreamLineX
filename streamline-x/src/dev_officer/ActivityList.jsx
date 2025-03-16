@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import '../CommonStyling.css';
 import './DevOfficerStyling.css';
 import './ActivityList.css';
+import { BackButton } from '../Header'; // Import the reusable BackButton
+
 
 
 // Back Icon component
@@ -28,17 +30,12 @@ const ActivityList = ({ onBack }) => {
     activeTab === 'assigned' ? activity.assigned : !activity.assigned
   );
 
-  return (
-    <div className="dashboard-container">
-      
-      <div className="main-content">
-        
+  return (              
         <div className="content">
+          {/* reusable BackButton */}
+          <BackButton onClick={onBack} text="Back" />
+          
           <div className="activity-list-header">
-            <button className="back-button" onClick={onBack}>
-              <BackIcon />
-              <span>Back</span>
-            </button>
             <h1>View Activity List</h1>
           </div>
           
@@ -82,8 +79,6 @@ const ActivityList = ({ onBack }) => {
             </table>
           </div>
         </div>
-      </div>
-    </div>
   );
 };
 

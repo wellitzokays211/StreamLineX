@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './ApprovedActivities.css';
+import { BackButton } from '../Header'; // Import the reusable BackButton
+
 
 const ApprovedActivities = ({ onBack, onViewActivity }) => {
   // Sample data for approved activities
@@ -30,15 +32,10 @@ const ApprovedActivities = ({ onBack, onViewActivity }) => {
     }
   ];
 
-  return (
-    <div className="approved-activities-container">
-      
+  return (    
       <div className="content">
-        <div className="back-button-container">
-          <button className="back-button" onClick={onBack}>
-            ← Back
-          </button>
-        </div>
+        {/* reusable BackButton */}
+        <BackButton onClick={onBack} text="Back" />
         
         <h1>Approved Activities</h1>
         
@@ -72,7 +69,6 @@ const ApprovedActivities = ({ onBack, onViewActivity }) => {
           </table>
         </div>
       </div>
-    </div>
   );
 };
 

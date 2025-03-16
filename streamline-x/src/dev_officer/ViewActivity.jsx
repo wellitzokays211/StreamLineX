@@ -3,6 +3,8 @@ import React from 'react';
 import '../CommonStyling.css';
 import './DevOfficerStyling.css';
 import './ViewActivity.css';
+import { BackButton } from '../Header'; // Import the reusable BackButton
+
 
 const ViewActivity = ({ activity, onBack }) => {
   // Handle null activity case with a loading state
@@ -10,20 +12,15 @@ const ViewActivity = ({ activity, onBack }) => {
     return (
       <div className="view-activity-container">
         <div className="content">
-          <div className="back-button-container">
-            <button className="back-button" onClick={onBack}>
-              ← Back
-            </button>
-          </div>
+          {/* reusable BackButton */}
+          <BackButton onClick={onBack} text="Back" />
           <h1>Loading activity details...</h1>
         </div>
       </div>
     );
   }
 
-  return (
-    <div className="view-activity-container">
-      
+  return (      
       <div className="main-content">
         
         <div className="content">
@@ -103,7 +100,6 @@ const ViewActivity = ({ activity, onBack }) => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

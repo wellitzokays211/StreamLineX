@@ -31,3 +31,8 @@
     outline: none;
     border-color: #6c7ae0;
   }
+  
+  .tab.active {
+    border-bottom: 2px solid #4e73df;
+    color: #4e73df;
+  }

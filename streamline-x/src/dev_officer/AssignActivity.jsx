@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './AssignActivity.css';
+import { BackButton } from '../Header'; // Import the reusable BackButton
+
 
 // Site engineer sample placeholder data
 const siteEngineers = [
@@ -35,14 +37,9 @@ const AssignActivity = ({ onBack, activity = sampleActivity }) => {
   };
 
   return (
-    <div className="dashboard-container">
-      
-      <div className="main-content">
-
         <div className="content">
-          <div className="back-button" onClick={onBack}>
-            &lt; Back
-          </div>
+          {/* reusable BackButton */}
+          <BackButton onClick={onBack} text="Back" />
           
           <div className="assign-activity-card">
             <h2>Activity ID: {activity.id}</h2>
@@ -87,8 +84,6 @@ const AssignActivity = ({ onBack, activity = sampleActivity }) => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
   );
 };
 

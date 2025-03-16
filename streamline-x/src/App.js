@@ -10,6 +10,9 @@ import PendingActivities from './dev_officer/PendingActivities';
 
 import './App.css';
 import Header, { Sidebar } from "./Header";
+import Notifications from './Notifications';
+import Messages from './Messages';
+import Profile from './Profile';  
 
 function App() {
   const [currentView, setCurrentView] = useState('dashboard');
@@ -78,12 +81,31 @@ function App() {
     setCurrentView('requestApproval');
   };
 
+   // Handler for notification click
+   const handleNotificationClick = () => {
+    setCurrentView('notifications');
+  };
+
+  // Handler for message click
+  const handleMessageClick = () => {
+    setCurrentView('messages');
+  };
+
+  // Handler for profile click
+  const handleProfileClick = () => {
+    setCurrentView('profile');
+  };
+
   // Render the current view
   return (
     <div className="app-container">
         <Sidebar />
         <div className="main-content">
-          <Header />
+          <Header 
+            onNotificationClick={handleNotificationClick}
+            onMessageClick={handleMessageClick}
+            onProfileClick={handleProfileClick}
+          />
           <div className="content-wrapper">
             {currentView === 'dashboard' ? (
               <Dashboard 
@@ -129,6 +151,18 @@ function App() {
             <RequestApproval 
               onBack={handleBackToDashboard}
               activity={selectedActivity}
+            />
+          ) : currentView === 'notifications' ? (
+            <Notifications 
+              onBack={handleBackToDashboard}
+            />
+          ) : currentView === 'messages' ? (
+            <Messages 
+              onBack={handleBackToDashboard}
+            />
+          ) :  currentView === 'profile' ? (
+            <Profile 
+              onBack={handleBackToDashboard}
             />
           ) : null}
         </div>

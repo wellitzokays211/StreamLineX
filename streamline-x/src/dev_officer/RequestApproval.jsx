@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import '../CommonStyling.css';
 import './DevOfficerStyling.css';
 import './RequestApproval.css';
+import { BackButton } from '../Header'; // Import the reusable BackButton
+
 
 // Icons
 const BackIcon = () => (
@@ -54,16 +56,10 @@ const RequestApproval = ({ onBack, activity }) => {
   };
 
   return (
-    <div className="app-container">
-      
-      <div className="main-content">
-        
         <div className="content">
           <div className="approval-header">
-            <button className="back-button" onClick={onBack}>
-              <BackIcon />
-              <span>Back</span>
-            </button>
+            {/* reusable BackButton */}
+            <BackButton onClick={onBack} text="Back" />
             <h1 className="activity-id">Activity ID: {activityData.id}</h1>
           </div>
           
@@ -129,8 +125,7 @@ const RequestApproval = ({ onBack, activity }) => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      
   );
 };
 

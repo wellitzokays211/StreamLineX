@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './BudgetUpdate.css';
+import { BackButton } from '../Header'; // Import the reusable BackButton
 
 // Icons
 const BackIcon = () => (
@@ -16,18 +17,10 @@ const BudgetUpdate = ({ onBack, currentBudget, onUpdateBudget }) => {
     onUpdateBudget(newBudget);
   };
 
-  return (
-    <div className="budget-update-container">
-      
-      <div className="main-content">
-        
+  return (         
         <div className="content">
-          <div className="back-nav">
-            <button className="back-button" onClick={onBack}>
-              <BackIcon />
-              <span>Back</span>
-            </button>
-          </div>
+          {/* reusable BackButton */}
+          <BackButton onClick={onBack} text="Back" />
           
           <div className="budget-update-card">
             <form className="budget-update-form" onSubmit={handleSubmit}>
@@ -61,8 +54,6 @@ const BudgetUpdate = ({ onBack, currentBudget, onUpdateBudget }) => {
             </form>
           </div>
         </div>
-      </div>
-    </div>
   );
 };
 

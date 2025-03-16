@@ -1,12 +1,9 @@
 import React, { useState, useRef } from 'react';
 import './AddActivity.css';
+import { BackButton } from '../Header'; // Import the reusable BackButton
+
 
 // Reusing the same icons from Dashboard
-const BackIcon = () => (
-  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-    <path d="M20,11H7.83l5.59-5.59L12,4l-8,8l8,8l1.41-1.41L7.83,13H20V11z"/>
-  </svg>
-);
 
 const ImageIcon = () => (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
@@ -172,15 +169,9 @@ const AddActivity = ({ onBack }) => {
   };
 
   return (
-    <div className="activity-container">
-      
-      <div className="main-content">
-        
         <div className="content">
-          <div className="back-button" onClick={onBack}>
-            <BackIcon />
-            <span>Back</span>
-          </div>
+          {/* reusable BackButton */}
+          <BackButton onClick={onBack} text="Back" />
           
           <h1>Add New Activity</h1>
           
@@ -358,8 +349,6 @@ const AddActivity = ({ onBack }) => {
             </div>
           </div>
         </div>
-      </div>
-    </div>
   );
 };
 

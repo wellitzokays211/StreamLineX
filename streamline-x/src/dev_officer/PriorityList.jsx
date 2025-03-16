@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './PriorityList.css';
 import DevelopmentPlan from './DevelopmentPlan'; // Import the new component
+import { BackButton } from '../Header'; // Import the reusable BackButton
+
 
 // You can reuse the same icon components from Dashboard.jsx or import them
 const BackIcon = () => (
@@ -82,15 +84,9 @@ const PriorityList = ({ onBack, currentBudget }) => {
   }
 
   return (
-    <div className="priority-list-container">
-      
-      <div className="main-content">
-        
         <div className="content">
-          <div className="back-button" onClick={onBack}>
-            <BackIcon />
-            <span>Back</span>
-          </div>
+          {/* reusable BackButton */}
+          <BackButton onClick={onBack} text="Back" />
           
           <h1>View Priority List</h1>
           
@@ -154,8 +150,7 @@ const PriorityList = ({ onBack, currentBudget }) => {
             </button>
           </div>
         </div>
-      </div>
-    </div>
+      
   );
 };
 
