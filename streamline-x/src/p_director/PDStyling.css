@@ -1,0 +1,38 @@
+/*Stylings for Provincial Director Window*/
+
+.sidebar.provincial-director {
+    background-color: #E7AE28;
+  }
+
+  .header.provincial-director {
+    background-color: #E7AE28;
+    color: white;
+  }
+
+  .btn-primary {
+    background-color: #E7AE28;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #d19c1f;
+  }
+  
+  .btn-secondary {
+    background-color: #e8eaff;
+    color: #E7AE28;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #d0d4ff;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: #E7AE28;
+  }
+  
+  .tab.active {
+    border-bottom: 2px solid #e0b85c;
+    color: #e0b85c;
+  }

@@ -1,10 +1,10 @@
 /*Stylings for Development Officer Window*/
 
-.sidebar {
+.sidebar.development-officer {
     background-color: #6c7ae0;
   }
 
-  .header {
+  .header.development-officer {
     background-color: #6c7ae0;
     color: white;
   }

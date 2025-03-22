@@ -1,0 +1,38 @@
+/*Stylings for Responsible Person Window*/
+
+.sidebar.site-engineer {
+    background-color: #A23DB3;
+  }
+
+  .header.site-engineer {
+    background-color: #A23DB3;
+    color: white;
+  }
+
+  .btn-primary {
+    background-color: #A23DB3;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #853194;
+  }
+  
+  .btn-secondary {
+    background-color: #e8eaff;
+    color: #A23DB3;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #d0d4ff;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: #A23DB3;
+  }
+  
+  .tab.active {
+    border-bottom: 2px solid #b13dc5;
+    color: #b13dc5;
+  }

@@ -1,13 +1,18 @@
 import React from 'react';
 
+//import Style sheets
 import './CommonStyling.css';
 import './dev_officer/DevOfficerStyling.css';
+import './s_eng/SEStyling.css';
+import './p_director/PDStyling.css';
+import './res_person/ResponsiblePersonStyling.css';
 
 // Sidebar component to be used in both Header and Dashboard
-export const Sidebar = () => {
+export const Sidebar = ({ onHomeClick, currentRole }) => {
+  // Adding the role as a class to apply the right styling
   return (
-    <div className="sidebar">
-      <div className="logo">StreamLineX</div>
+    <div className={`sidebar ${currentRole}`}>
+      <div className="logo"onClick={onHomeClick}>StreamLineX</div>
     </div>
   );
 };
@@ -65,9 +70,29 @@ const ProfileIcon = ({onClick}) => (
 );
 
 
-const Header = ({ onNotificationClick, onMessageClick, onProfileClick }) => {
+const Header = ({ onNotificationClick, onMessageClick, onProfileClick, currentRole }) => {
+  // Transform role ID to display name
+  const getRoleDisplayName = (roleId) => {
+    switch (roleId) {
+      case 'development-officer':
+        return 'Development Officer';
+      case 'site-engineer':
+        return 'Site Engineer';
+      case 'provincial-director':
+        return 'Provincial Director';
+      case 'responsible-person':
+        return 'Responsible Person';
+      default:
+        return '';
+    }
+  };
+  
   return (
-    <header className="header">
+    // Adding the role as a class to the header
+    <header className={`header ${currentRole}`}>
+      <div className="header-title">
+        {currentRole && <span className="role-indicator">{getRoleDisplayName(currentRole)}</span>}
+      </div>
       <div className="notification-icon">
         <NotificationIcon onClick={onNotificationClick} />
       </div>
