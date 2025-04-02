@@ -28,7 +28,10 @@ import PendingActivities from './dev_officer/PendingActivities';
 import RpViewActivity from './res_person/RpViewActivity';
 import RpAddActivity from './res_person/RpAddActivity';
 import RpOnGoingActivities from './res_person/RpOnGoingActivities';
-import RpCompletedActivities from './res_person/RpCompletedActivities';  
+import RpCompletedActivities from './res_person/RpCompletedActivities';
+
+// site engineer components
+import SeViewActivity from './s_eng/SeViewActivity';
 
 function App() {
   const [currentView, setCurrentView] = useState('roleSelection');
@@ -118,6 +121,8 @@ function App() {
     // Navigate to the appropriate view based on current role
     if (currentRole === 'responsible-person') {
       setCurrentView('rpViewActivity');
+    } else if (currentRole === 'site-engineer') {
+      setCurrentView('seViewActivity');
     } else {
       setCurrentView('viewActivity');
     }
@@ -250,6 +255,7 @@ const handleViewCompletedActivities = () => {
                   onBack={handleBackToDashboard}
                 />
               )}
+
               {currentView === 'rpAddActivity' && (
                 <RpAddActivity 
                   onBack={handleBackToDashboard}
@@ -270,10 +276,22 @@ const handleViewCompletedActivities = () => {
                 />
               )}
 
-              {/* Other role dashboards */}
+              {/* Site Engineer Views */}
               {currentView === 'seDashboard' && (
-                <SeDashboard onBack={handleReturnToRoleSelection} />
+                <SeDashboard 
+                  onBack={handleReturnToRoleSelection} 
+                  onViewActivity={handleViewActivity}
+                />
               )}
+
+              {currentView === 'seViewActivity' && (
+                <SeViewActivity 
+                  activity={selectedActivity}
+                  onBack={handleBackToDashboard}
+                />
+              )}
+
+              {/* Provincial Director*/}
               {currentView === 'pdDashboard' && (
                 <PdDashboard onBack={handleReturnToRoleSelection} />
               )}

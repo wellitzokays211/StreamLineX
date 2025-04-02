@@ -1,38 +1,124 @@
-/*Stylings for Responsible Person Window*/
+/*Stylings for Site Engineer Window*/
 
 .sidebar.site-engineer {
-    background-color: #A23DB3;
-  }
+  background-color: #A23DB3;
+}
 
-  .header.site-engineer {
-    background-color: #A23DB3;
-    color: white;
-  }
+.header.site-engineer {
+  background-color: #A23DB3;
+  color: white;
+}
 
-  .btn-primary {
-    background-color: #A23DB3;
-    color: white;
-  }
-  
-  .btn-primary:hover {
-    background-color: #853194;
-  }
-  
-  .btn-secondary {
-    background-color: #e8eaff;
-    color: #A23DB3;
-  }
-  
-  .btn-secondary:hover {
-    background-color: #d0d4ff;
-  }
+.btn-primary {
+  background-color: #A23DB3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
 
-  .form-input:focus {
-    outline: none;
-    border-color: #A23DB3;
-  }
-  
-  .tab.active {
-    border-bottom: 2px solid #b13dc5;
-    color: #b13dc5;
-  }
+.btn-primary:hover {
+  background-color: #853194;
+}
+
+.btn-secondary {
+  background-color: #e8eaff;
+  color: #A23DB3;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #d0d4ff;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #A23DB3;
+}
+
+.tab.active {
+  border-bottom: 2px solid #b13dc5;
+  color: #b13dc5;
+}
+
+/* Activity Details Styling */
+.activity-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.activity-details-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.activity-detail-row {
+  display: flex;
+  border-bottom: 1px solid #eee;
+  padding: 0.75rem 0;
+}
+
+.activity-detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-weight: 500;
+  width: 180px;
+  flex-shrink: 0;
+  color: #666;
+}
+
+.detail-value {
+  flex-grow: 1;
+  color: #333;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  color: #666;
+  cursor: pointer;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.back-button svg {
+  margin-right: 0.5rem;
+}
+
+.content {
+  padding: 1.5rem;
+}
+
+.profile-edit-btn {
+  background-color: #A23DB3;
+  color: white;
+  padding: 8px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.profile-edit-btn:hover {
+  background-color: #853194;
+}

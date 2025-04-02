@@ -36,3 +36,16 @@
     border-bottom: 2px solid #4e73df;
     color: #4e73df;
   }
+
+  .profile-edit-btn {
+    background-color: #4e73df;
+    color: white;
+    padding: 8px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .profile-edit-btn:hover {
+    background-color: #3a5fce;
+  }

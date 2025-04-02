@@ -190,6 +190,19 @@ cursor: pointer;
 background-color: #C8E6C9;
 }
 
+.profile-edit-btn {
+  background-color: #4E993F;
+  color: white;
+  padding: 8px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.profile-edit-btn:hover {
+  background-color: #428335;
+}
+
 /* New status panel styling to match the circled design */
 .status-panel {
 display: flex;
