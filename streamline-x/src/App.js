@@ -27,6 +27,8 @@ import PendingActivities from './dev_officer/PendingActivities';
 // responsible person components
 import RpViewActivity from './res_person/RpViewActivity';
 import RpAddActivity from './res_person/RpAddActivity';
+import RpOnGoingActivities from './res_person/RpOnGoingActivities';
+import RpCompletedActivities from './res_person/RpCompletedActivities';  
 
 function App() {
   const [currentView, setCurrentView] = useState('roleSelection');
@@ -157,6 +159,15 @@ function App() {
     setCurrentView('profile');
   };
 
+  // Handler for ongoing activities - RP
+const handleViewOnGoingActivities = () => {
+  setCurrentView('rpOnGoingActivities');
+};
+
+// Handler for ongoing activities - RP
+const handleViewCompletedActivities = () => {
+  setCurrentView('rpCompletedActivities');
+};
   // Render the current view
   return (
     <div className="app-container">
@@ -229,6 +240,8 @@ function App() {
                   onBack={handleReturnToRoleSelection}
                   onAddActivity={handleAddActivity}
                   onViewActivity={handleViewActivity}
+                  onViewOnGoingActivities={handleViewOnGoingActivities}
+                  onViewCompletedActivities={handleViewCompletedActivities}
                 />
               )}
               {currentView === 'rpViewActivity' && (
@@ -243,6 +256,20 @@ function App() {
                 />
               )}
               
+              {currentView === 'rpOnGoingActivities' && (
+                <RpOnGoingActivities 
+                  onBack={handleBackToDashboard}
+                  onViewActivity={handleViewActivity}
+                />
+              )}
+
+              {currentView === 'rpCompletedActivities' && (
+                <RpCompletedActivities 
+                  onBack={handleBackToDashboard}
+                  onViewActivity={handleViewActivity}
+                />
+              )}
+
               {/* Other role dashboards */}
               {currentView === 'seDashboard' && (
                 <SeDashboard onBack={handleReturnToRoleSelection} />

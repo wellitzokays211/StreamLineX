@@ -2,7 +2,7 @@ import React from 'react';
 import { BackButton } from '../Header';
 import './ResponsiblePersonStyling.css';
 
-const RpDashboard = ({ onBack, onAddActivity, onViewActivity, activities = [] }) => {
+const RpDashboard = ({ onBack, onAddActivity, onViewActivity, onViewOnGoingActivities,onViewCompletedActivities, activities = [] }) => {
   // Use provided activities or default to empty array
   const displayActivities = activities.length > 0 ? activities : [
     {
@@ -33,7 +33,7 @@ const RpDashboard = ({ onBack, onAddActivity, onViewActivity, activities = [] })
           </div>
         </div>
         
-        <div className="stat-card">
+        <div className="stat-card" onClick={onViewOnGoingActivities} style={{cursor: 'pointer'}}>
           <div className="stat-content">
             <div>
               <div className="stat-title">On-Going</div>
@@ -47,7 +47,7 @@ const RpDashboard = ({ onBack, onAddActivity, onViewActivity, activities = [] })
           </div>
         </div>
         
-        <div className="stat-card">
+        <div className="stat-card" onClick={onViewCompletedActivities} style={{cursor: 'pointer'}}>
           <div className="stat-content">
             <div>
               <div className="stat-title">Completed</div>
