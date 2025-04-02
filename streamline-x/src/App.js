@@ -24,6 +24,10 @@ import AssignActivity from './dev_officer/AssignActivity';
 import RequestApproval from './dev_officer/RequestApproval';
 import PendingActivities from './dev_officer/PendingActivities';
 
+// responsible person components
+import RpViewActivity from './res_person/RpViewActivity';
+import RpAddActivity from './res_person/RpAddActivity';
+
 function App() {
   const [currentView, setCurrentView] = useState('roleSelection');
   const [currentRole, setCurrentRole] = useState(null);
@@ -65,10 +69,13 @@ function App() {
     alert('View Activity List clicked!');
   };
 
-  // Handler for add activity
-  const handleAddActivity = () => {
-    // This would open add activity form in a full implementation
-    alert('Add Activity clicked!');
+   // Handler for add activity
+   const handleAddActivity = () => {
+    if (currentRole === 'responsible-person') {
+      setCurrentView('rpAddActivity');
+    } else {
+      alert('Add Activity clicked!');
+    }
   };
 
   // Handler for view priority list
@@ -106,7 +113,12 @@ function App() {
   // Handler for viewing a specific activity
   const handleViewActivity = (activity) => {
     setSelectedActivity(activity);
-    setCurrentView('viewActivity');
+    // Navigate to the appropriate view based on current role
+    if (currentRole === 'responsible-person') {
+      setCurrentView('rpViewActivity');
+    } else {
+      setCurrentView('viewActivity');
+    }
   };
 
   // Handler for back from view activity
@@ -211,6 +223,26 @@ function App() {
                 />
               )}
               
+              {/* Responsible Person Views */}
+              {currentView === 'rpDashboard' && (
+                <RpDashboard 
+                  onBack={handleReturnToRoleSelection}
+                  onAddActivity={handleAddActivity}
+                  onViewActivity={handleViewActivity}
+                />
+              )}
+              {currentView === 'rpViewActivity' && (
+                <RpViewActivity 
+                  activity={selectedActivity}
+                  onBack={handleBackToDashboard}
+                />
+              )}
+              {currentView === 'rpAddActivity' && (
+                <RpAddActivity 
+                  onBack={handleBackToDashboard}
+                />
+              )}
+              
               {/* Other role dashboards */}
               {currentView === 'seDashboard' && (
                 <SeDashboard onBack={handleReturnToRoleSelection} />
@@ -218,9 +250,7 @@ function App() {
               {currentView === 'pdDashboard' && (
                 <PdDashboard onBack={handleReturnToRoleSelection} />
               )}
-              {currentView === 'rpDashboard' && (
-                <RpDashboard onBack={handleReturnToRoleSelection} />
-              )}
+              
 
               {/* Common views */}
               {currentView === 'notifications' && (
