@@ -4,7 +4,7 @@ import '../CommonStyling.css';
 import './SEStyling.css';
 import { BackButton } from '../Header'; // Import the reusable BackButton
 
-const SeViewActivity = ({ activity, onBack }) => {
+const SeViewActivity = ({ activity, onBack, onSetBudget, onSetPriority, onSetStatus }) => {
   // Handle null activity case with a loading state
   if (!activity) {
     return (
@@ -15,9 +15,22 @@ const SeViewActivity = ({ activity, onBack }) => {
     );
   }
 
+  // Function to get the appropriate CSS class for status badge
+  const getStatusClass = (status) => {
+    if (!status) return '';
+    
+    switch(status) {
+      case 'Not Started': return 'status-not-started';
+      case 'On-Going': return 'status-on-going';
+      case 'Completed': return 'status-completed';
+      case 'Cancelled': return 'status-cancelled';
+      default: return '';
+    }
+  };
+
   return (
     <div className="content">
-      {/* Use the reusable BackButton component */}
+      {/* Using the reusable BackButton component */}
       <BackButton onClick={onBack} text="Back" />
 
       <h1 className="activity-title">Activity ID: {activity.id || "001"}</h1>
@@ -47,13 +60,53 @@ const SeViewActivity = ({ activity, onBack }) => {
           <div className="detail-label">Component:</div>
           <div className="detail-value">{activity.component || "Strengthen towards education governance and service delivery of education"}</div>
         </div>
+        
+        {activity.budget && (
+          <div className="activity-detail-row">
+            <div className="detail-label">Allocated Budget:</div>
+            <div className="detail-value highlight">Rs. {parseFloat(activity.budget).toLocaleString('en-IN')}</div>
+          </div>
+        )}
+        
+        {activity.priority && (
+          <div className="activity-detail-row">
+            <div className="detail-label">Priority Level:</div>
+            <div className="detail-value highlight">{activity.priority} / 10</div>
+          </div>
+        )}
+        
+        {activity.status && (
+          <div className="activity-detail-row">
+            <div className="detail-label">Current Status:</div>
+            <div className="detail-value">
+              <span className={`status-badge ${getStatusClass(activity.status)}`}>
+                {activity.status}
+              </span>
+            </div>
+          </div>
+        )}
       </div>
       
       {/* Action buttons positioned at the bottom */}
       <div className="action-buttons">
-        <button className="btn btn-secondary" onClick={() => console.log('Set Budget')}>Set Budget</button>
-        <button className="btn btn-primary" onClick={() => console.log('Set Priority')}>Set Priority</button>
-        <button className="btn btn-secondary" onClick={() => console.log('Set Status')}>Set Status</button>
+        <button 
+          className="btn-budget" 
+          onClick={() => onSetBudget(activity)}
+        >
+          Set Budget
+        </button>
+        <button 
+          className="btn-priority" 
+          onClick={() => onSetPriority(activity)}
+        >
+          Set Priority
+        </button>
+        <button 
+          className="btn-status"
+          onClick={() => onSetStatus(activity)}
+        >
+          Set Status
+        </button>
       </div>
     </div>
   );

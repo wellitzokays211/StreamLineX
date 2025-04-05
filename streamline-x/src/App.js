@@ -32,12 +32,23 @@ import RpCompletedActivities from './res_person/RpCompletedActivities';
 
 // site engineer components
 import SeViewActivity from './s_eng/SeViewActivity';
+import SeActivityList from './s_eng/SeActivityList';
+import SeOnGoingActivities from './s_eng/SeOnGoingActivities';
+import SeCompletedActivities from './s_eng/SeCompletedActivities';
+import SeBudgetSetting from './s_eng/SeBudgetSetting';
+import SePrioritySettings from './s_eng/SePrioritySettings';
+import SeSetStatus from './s_eng/SeSetStatus';
+
 
 function App() {
   const [currentView, setCurrentView] = useState('roleSelection');
   const [currentRole, setCurrentRole] = useState(null);
   const [currentBudget, setCurrentBudget] = useState(3000000.00);
   const [selectedActivity, setSelectedActivity] = useState(null);
+  const [activityBudgets, setActivityBudgets] = useState({});
+  const [activityPriorities, setActivityPriorities] = useState({});
+  const [activityStatuses, setActivityStatuses] = useState({});
+  
 
   // Handler for role selection
   const handleRoleSelection = (role) => {
@@ -68,10 +79,15 @@ function App() {
     }
   };
 
-  // Handler for view activity list
-  const handleViewActivityList = () => {
-    // This would navigate to activity list in a full implementation
-    alert('View Activity List clicked!');
+   // Handler for view activity list
+   const handleViewActivityList = () => {
+    if (currentRole === 'site-engineer') {
+      // Navigate to the site engineer activity list
+      setCurrentView('seActivityList');
+    } else {
+      // Navigate to the development officer activity list
+      alert('View Activity List clicked!');
+    }
   };
 
    // Handler for add activity
@@ -164,15 +180,66 @@ function App() {
     setCurrentView('profile');
   };
 
-  // Handler for ongoing activities - RP
+  // Handler for ongoing activities - RP | SE
 const handleViewOnGoingActivities = () => {
-  setCurrentView('rpOnGoingActivities');
+  if (currentRole === 'responsible-person') {
+    setCurrentView('rpOnGoingActivities');
+  } else if (currentRole === 'site-engineer') {
+    setCurrentView('seOnGoingActivities');
+  }
 };
 
-// Handler for ongoing activities - RP
+// Handler for completed activities - RP | SE
 const handleViewCompletedActivities = () => {
-  setCurrentView('rpCompletedActivities');
+  if (currentRole === 'responsible-person') {
+    setCurrentView('rpCompletedActivities');
+  } else if (currentRole === 'site-engineer') {
+    setCurrentView('seCompletedActivities');
+  }
 };
+
+// Handler for setting bedget - SE
+const handleSetBudget = (activity) => {
+  setSelectedActivity(activity);
+  setCurrentView('seBudgetSetting');
+};
+
+// Handler function to save the budget - SE
+const handleSaveBudget = (activityId, budget) => {
+  setActivityBudgets(prev => ({
+    ...prev,
+    [activityId]: budget
+  }));
+};
+
+// Handler for setting priority - SE
+const handleSetPriority = (activity) => {
+  setSelectedActivity(activity);
+  setCurrentView('sePrioritySettings');
+};
+
+// Handler function to save the priority - SE
+const handleSavePriority = (activityId, priority) => {
+  setActivityPriorities(prev => ({
+    ...prev,
+    [activityId]: priority
+  }));
+};
+
+// Handler for setting status - SE
+const handleSetStatus = (activity) => {
+  setSelectedActivity(activity);
+  setCurrentView('seSetStatus');
+};
+
+// Handler function to save the status - SE
+const handleSaveStatus = (activityId, status) => {
+  setActivityStatuses(prev => ({
+    ...prev,
+    [activityId]: status
+  }));
+};
+
   // Render the current view
   return (
     <div className="app-container">
@@ -189,6 +256,7 @@ const handleViewCompletedActivities = () => {
               currentRole={currentRole}
             />
             <div className="content-wrapper">
+              {/********************/}
               {/* Development Officer Views */}
               {currentView === 'dashboard' && (
                 <Dashboard 
@@ -239,6 +307,7 @@ const handleViewCompletedActivities = () => {
                 />
               )}
               
+              {/********************/}
               {/* Responsible Person Views */}
               {currentView === 'rpDashboard' && (
                 <RpDashboard 
@@ -276,27 +345,94 @@ const handleViewCompletedActivities = () => {
                 />
               )}
 
+              {/********************/}
               {/* Site Engineer Views */}
               {currentView === 'seDashboard' && (
                 <SeDashboard 
                   onBack={handleReturnToRoleSelection} 
                   onViewActivity={handleViewActivity}
+                  onViewActivityList={handleViewActivityList}
+                  onViewOnGoingActivities={handleViewOnGoingActivities}
+                  onViewCompletedActivities={handleViewCompletedActivities}
                 />
               )}
 
               {currentView === 'seViewActivity' && (
                 <SeViewActivity 
-                  activity={selectedActivity}
+                  activity={{
+                    ...selectedActivity,
+                    budget: activityBudgets[selectedActivity?.id],
+                    priority: activityPriorities[selectedActivity?.id],
+                    status: activityStatuses[selectedActivity?.id]
+                  }}
                   onBack={handleBackToDashboard}
+                  onSetBudget={handleSetBudget}
+                  onSetPriority={handleSetPriority}
+                  onSetStatus={handleSetStatus}
                 />
               )}
 
+              {currentView === 'seActivityList' && (
+                <SeActivityList
+                  onBack={handleBackToDashboard}
+                  onViewActivity={handleViewActivity}
+                />
+              )}
+
+              {currentView === 'seOnGoingActivities' && (
+                <SeOnGoingActivities 
+                  onBack={handleBackToDashboard}
+                  onViewActivity={handleViewActivity}
+                />
+              )}
+
+              {currentView === 'seCompletedActivities' && (
+                <SeCompletedActivities 
+                  onBack={handleBackToDashboard}
+                  onViewActivity={handleViewActivity}
+                />
+              )}
+
+              {/* SE Budget Setting */}
+              {currentView === 'seBudgetSetting' && (
+                <SeBudgetSetting 
+                  activity={selectedActivity}
+                  onBack={() => setCurrentView('seViewActivity')}
+                  currentBudget={currentBudget}
+                  onSaveBudget={handleSaveBudget}
+                />
+              )}
+
+              {/* SE Priority Settings */}
+              {currentView === 'sePrioritySettings' && (
+                <SePrioritySettings 
+                  activity={selectedActivity}
+                  onBack={() => setCurrentView('seViewActivity')}
+                  onSavePriority={handleSavePriority}
+                />
+              )}
+
+              {/* SE Status Setting */}
+            {currentView === 'seSetStatus' && (
+                <SeSetStatus 
+                  activity={{
+                    ...selectedActivity,
+                    budget: activityBudgets[selectedActivity?.id],
+                    priority: activityPriorities[selectedActivity?.id],
+                    status: activityStatuses[selectedActivity?.id]
+                  }}
+                  onBack={() => setCurrentView('seViewActivity')}
+                  onSaveStatus={handleSaveStatus}
+                />
+              )}
+  
+              {/********************/}
               {/* Provincial Director*/}
               {currentView === 'pdDashboard' && (
                 <PdDashboard onBack={handleReturnToRoleSelection} />
               )}
               
-
+              
               {/* Common views */}
               {currentView === 'notifications' && (
                 <Notifications onBack={handleBackToDashboard} />

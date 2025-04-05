@@ -2,7 +2,14 @@ import React from 'react';
 import { BackButton } from '../Header';
 import './SEStyling.css';
 
-const SeDashboard = ({ onBack, onAddActivity, onViewActivity, onViewOnGoingActivities,onViewCompletedActivities, activities = [] }) => {
+const SeDashboard = ({ 
+  onBack, 
+  onAddActivity, 
+  onViewActivity, 
+  onViewActivityList, 
+  onViewOnGoingActivities,
+  onViewCompletedActivities, 
+  activities = [] }) => {
   // Use provided activities or default to empty array
   const displayActivities = activities.length > 0 ? activities : [
     {
@@ -22,7 +29,7 @@ const SeDashboard = ({ onBack, onAddActivity, onViewActivity, onViewOnGoingActiv
       <h1>Dashboard</h1>
       
       <div className="stats-row">
-        <div className="add-activity-card" onClick={onAddActivity}>
+        <div className="add-activity-card" onClick={onViewActivityList}>
           <div className="add-activity-content">
             <span>My Activities</span>
             <div className="add-icon">
