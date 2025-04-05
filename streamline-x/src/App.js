@@ -39,6 +39,10 @@ import SeBudgetSetting from './s_eng/SeBudgetSetting';
 import SePrioritySettings from './s_eng/SePrioritySettings';
 import SeSetStatus from './s_eng/SeSetStatus';
 
+// Provincial director components
+import PdApprovedActivities from './p_director/PdApprovedActivities';
+import PdPendingActivities from './p_director/PdPendingActivities';
+import PdViewActivity from './p_director/PdViewActivity';
 
 function App() {
   const [currentView, setCurrentView] = useState('roleSelection');
@@ -48,6 +52,7 @@ function App() {
   const [activityBudgets, setActivityBudgets] = useState({});
   const [activityPriorities, setActivityPriorities] = useState({});
   const [activityStatuses, setActivityStatuses] = useState({});
+  const [activityApprovalStatuses, setActivityApprovalStatuses] = useState({});
   
 
   // Handler for role selection
@@ -128,7 +133,11 @@ function App() {
 
   // Handler for viewing approved activities
   const handleViewApprovedActivities = () => {
-    setCurrentView('approvedActivities');
+    if (currentRole === 'provincial-director') {
+      setCurrentView('pdApprovedActivities');
+    } else {
+      setCurrentView('approvedActivities');
+    }
   };
 
   // Handler for viewing a specific activity
@@ -139,6 +148,8 @@ function App() {
       setCurrentView('rpViewActivity');
     } else if (currentRole === 'site-engineer') {
       setCurrentView('seViewActivity');
+    } else if (currentRole === 'provincial-director') {
+      setCurrentView('pdViewActivity');
     } else {
       setCurrentView('viewActivity');
     }
@@ -151,7 +162,11 @@ function App() {
 
   // Handler for viewing pending activities
   const handleViewPendingActivities = () => {
-    setCurrentView('pendingActivities');
+    if (currentRole === 'provincial-director') {
+      setCurrentView('pdPendingActivities');
+    } else {
+      setCurrentView('pendingActivities');
+    }
   };
 
   // Handler for assign activity
@@ -240,6 +255,13 @@ const handleSaveStatus = (activityId, status) => {
   }));
 };
 
+// Handler function to save the approval status - PD
+const handleSaveApprovalStatus = (activityId, status) => {
+  setActivityApprovalStatuses(prev => ({
+    ...prev,
+    [activityId]: status
+  }));
+};
   // Render the current view
   return (
     <div className="app-container">
@@ -429,9 +451,39 @@ const handleSaveStatus = (activityId, status) => {
               {/********************/}
               {/* Provincial Director*/}
               {currentView === 'pdDashboard' && (
-                <PdDashboard onBack={handleReturnToRoleSelection} />
-              )}
-              
+              <PdDashboard 
+                onBack={handleReturnToRoleSelection} 
+                currentBudget={currentBudget}
+                onViewApprovedActivities={handleViewApprovedActivities}
+                onViewPendingActivities={handleViewPendingActivities}
+                onViewActivity={handleViewActivity}
+              />
+            )}
+
+            {currentView === 'pdApprovedActivities' && (
+              <PdApprovedActivities 
+                onBack={handleBackToDashboard}
+                onViewActivity={handleViewActivity}
+              />
+            )}
+
+            {currentView === 'pdPendingActivities' && (
+              <PdPendingActivities 
+                onBack={handleBackToDashboard}
+                onViewActivity={handleViewActivity}
+              />
+            )}
+
+            {currentView === 'pdViewActivity' && (
+              <PdViewActivity 
+                activity={{
+                  ...selectedActivity,
+                  status: activityApprovalStatuses[selectedActivity?.id]
+                }}
+                onBack={handleBackToDashboard}
+                onSaveApprovalStatus={handleSaveApprovalStatus}
+              />
+            )}
               
               {/* Common views */}
               {currentView === 'notifications' && (

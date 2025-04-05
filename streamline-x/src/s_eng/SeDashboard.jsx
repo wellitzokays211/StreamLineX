@@ -10,6 +10,7 @@ const SeDashboard = ({
   onViewOnGoingActivities,
   onViewCompletedActivities, 
   activities = [] }) => {
+    
   // Use provided activities or default to empty array
   const displayActivities = activities.length > 0 ? activities : [
     {

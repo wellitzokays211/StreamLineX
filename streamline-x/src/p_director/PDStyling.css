@@ -1,38 +1,118 @@
 /*Stylings for Provincial Director Window*/
 
 .sidebar.provincial-director {
-    background-color: #E7AE28;
-  }
+  background-color: #E7AE28; 
+}
+.header.provincial-director {
+  background-color: #E7AE28;
+  color: white;
+}
 
-  .header.provincial-director {
-    background-color: #E7AE28;
-    color: white;
-  }
+.header.sidebar.provincial-director {
+  background-color: #E7AE28;
+  color: white;
+}
 
-  .btn-primary {
-    background-color: #E7AE28;
-    color: white;
-  }
-  
-  .btn-primary:hover {
-    background-color: #d19c1f;
-  }
-  
-  .btn-secondary {
-    background-color: #e8eaff;
-    color: #E7AE28;
-  }
-  
-  .btn-secondary:hover {
-    background-color: #d0d4ff;
-  }
+.btn-primary {
+  background-color: #E7AE28;
+  color: white;
+}
 
-  .form-input:focus {
-    outline: none;
-    border-color: #E7AE28;
-  }
-  
-  .tab.active {
-    border-bottom: 2px solid #e0b85c;
-    color: #e0b85c;
-  }
+.btn-primary:hover {
+  background-color: #c99924;
+}
+
+.btn-secondary {
+  background-color: #fdf7e8;
+  color: #E7AE28;
+}
+
+.btn-secondary:hover {
+  background-color: #faecc4;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #E7AE28;
+}
+
+.tab.active {
+  border-bottom: 2px solid #E7AE28;
+  color: #E7AE28;
+}
+
+.profile-edit-btn {
+  background-color: #E7AE28;
+  color: white;
+  padding: 8px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.profile-edit-btn.pd:hover {
+  background-color: #c99924;
+}
+
+/* Status panel styling with PD theme */
+.status-panel.pd {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background-color: rgba(231, 174, 40, 0.1);
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.status-icon.pd {
+  font-style: normal;
+  color: #E7AE28;
+  font-size: 14px;
+}
+
+/* Action buttons PD styling */
+.action-buttons .btn-primary.pd {
+  background-color: #E7AE28;
+  color: white;
+}
+
+.action-buttons .btn-primary.pd:hover {
+  background-color: #c99924;
+}
+
+.action-card.pd-highlight {
+  background-color: #fdf7e8;
+}
+
+.action-button.pd-highlight {
+  color: #333;
+}
+
+.view-button.pd {
+  background-color: #fdf7e8;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 15px;
+  color: #E7AE28;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.view-button.pd:hover {
+  background-color: #faecc4;
+}
+
+.status-panel.pd {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  margin-bottom: 30px;
+  font-size: 16px;
+  padding: 10px;
+  background: white;
+}
+
+.status-label{
+  font-size: 16px;
+}
