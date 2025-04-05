@@ -7,12 +7,11 @@ const ActivityStatus = ({ status }) => {
     'Pending': '#f39c12',
     'Approved': '#27ae60',
     'Rejected': '#e74c3c',
-
-  };
+  };    
 
   return (
-    <div className="status-panel pd" style={{ marginBottom: '15px', backgroundColor: '#f9f9f9', padding: '10px', borderRadius: '5px' }}>
-      <span className="status-label" >Approval Status: </span>
+    <div className="status-panel pd" style={{ marginBottom: '30px', backgroundColor: '#ffffff', padding: '10px', borderRadius: '5px' }}>
+      <span className="status-label" style={{fontWeight:'bold', fontSize: '16px', padding: '2px 10px'}}>Approval Status: </span>
       <span 
         className="status-value" 
         style={{ 
@@ -29,6 +28,8 @@ const ActivityStatus = ({ status }) => {
 const PdViewActivity = ({ activity, onBack }) => {
   // Initialize state for approval status
   const [approvalStatus, setApprovalStatus] = useState(activity?.status || 'Pending');
+  // State to track if we're in revision mode
+  const [isRevising, setIsRevising] = useState(false);
   
   // Handler for approving activity
   const handleApproveActivity = () => {
@@ -38,9 +39,19 @@ const PdViewActivity = ({ activity, onBack }) => {
 
   // Handler for sending revisions
   const handleSendRevisions = () => {
-    // Implementation for sending revision requests
-    alert('Sending revision request for activity: ' + activity?.id);
+    // Toggle to revision mode
+    setIsRevising(true);
   };
+
+  // If we're in revising mode, show the PdReviseActivity component
+  if (isRevising) {
+    return (
+      <PdReviseActivity 
+        activity={activity}
+        onBack={() => setIsRevising(false)}
+      />
+    );
+  }
 
   return (
     <div className="content">
@@ -112,6 +123,74 @@ const PdViewActivity = ({ activity, onBack }) => {
           }}
         >
           Send Revisions
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// PdReviseActivity component
+const PdReviseActivity = ({ activity, onBack }) => {
+  const [message, setMessage] = useState('');
+
+  const handleSendRevisions = () => {
+    // Here you would typically make an API call to send the revision
+    alert('Revision sent for activity: ' + activity?.id);
+    // Go back to previous screen after sending
+    onBack();
+  };
+
+  return (
+    <div className="content">
+      <BackButton onClick={onBack} />
+      
+      <h2 style={{ marginBottom: '20px' }}>Revise Activity</h2>
+      <h1>Activity ID: {activity?.id || '001'}</h1>
+      
+      <div className="card" style={{ marginBottom: '20px' }}>
+        <div className="form-group">
+          <div style={{ marginBottom: '10px', fontWeight: 'bold' }}>Enter Your Message:</div>
+          <textarea 
+            className="form-input" 
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            rows={5}
+            style={{ width: '100%', padding: '10px', borderRadius: '5px' }}
+          />
+        </div>
+      </div>
+      
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
+        <button 
+          className="btn-primary"
+          onClick={handleSendRevisions}
+          style={{ 
+            backgroundColor: '#4a90e2',
+            padding: '12px 20px',
+            borderRadius: '5px',
+            border: 'none',
+            color: 'white',
+            fontWeight: 'bold',
+            fontSize: '14px'
+          }}
+        >
+          Send Revisions
+        </button>
+        
+        <button 
+          className="btn btn-secondary"
+          onClick={onBack}
+          style={{ 
+            backgroundColor: '#e74c3c',
+            padding: '12px 20px',
+            borderRadius: '5px',
+            border: 'none',
+            color: 'white',
+            fontWeight: 'bold',
+            fontSize: '14px'
+          }}
+        >
+          Cancel
         </button>
       </div>
     </div>

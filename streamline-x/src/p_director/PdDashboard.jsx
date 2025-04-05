@@ -38,7 +38,8 @@ const ReceivedIcon = () => (
 const PdDashboard = ({ 
   onViewApprovedActivities, 
   onViewPendingActivities, 
-  onViewActivity}) => {
+  onViewActivity,
+  onViewRecievedActivities}) => {
     
   const [budget, setBudget] = useState(3000000.00);
   const [pendingActivities] = useState([
@@ -98,7 +99,7 @@ const PdDashboard = ({
           </button>
         </div>
             
-        <div className="action-card pd-highlight">
+        <div className="action-card pd-highlight" onClick={onViewRecievedActivities} style={{ cursor: 'pointer' }}>
           <button className="action-button pd-highlight" >
             <span>Received Activities</span>
             <ReceivedIcon />

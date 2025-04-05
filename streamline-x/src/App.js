@@ -43,6 +43,8 @@ import SeSetStatus from './s_eng/SeSetStatus';
 import PdApprovedActivities from './p_director/PdApprovedActivities';
 import PdPendingActivities from './p_director/PdPendingActivities';
 import PdViewActivity from './p_director/PdViewActivity';
+import PdReviseActivity from './p_director/PdReviseActivity';
+import PdRecievedActivities from './p_director/PdRecievedActivities';
 
 function App() {
   const [currentView, setCurrentView] = useState('roleSelection');
@@ -53,6 +55,7 @@ function App() {
   const [activityPriorities, setActivityPriorities] = useState({});
   const [activityStatuses, setActivityStatuses] = useState({});
   const [activityApprovalStatuses, setActivityApprovalStatuses] = useState({});
+  const [isRevising, setIsRevising] = useState(false);
   
 
   // Handler for role selection
@@ -262,6 +265,19 @@ const handleSaveApprovalStatus = (activityId, status) => {
     [activityId]: status
   }));
 };
+
+// Handler for sending revisions - PD
+const handleSendRevisions = (activity) => {
+  setSelectedActivity(activity);
+  setCurrentView('pdReviseActivity');
+};
+
+// Handler for viewing recieved activities - PD
+const handleRecievedActivities = (activity) => {
+  setSelectedActivity(activity);
+  setCurrentView('pdRecievedActivities');
+};
+
   // Render the current view
   return (
     <div className="app-container">
@@ -457,6 +473,7 @@ const handleSaveApprovalStatus = (activityId, status) => {
                 onViewApprovedActivities={handleViewApprovedActivities}
                 onViewPendingActivities={handleViewPendingActivities}
                 onViewActivity={handleViewActivity}
+                onViewRecievedActivities={handleRecievedActivities}
               />
             )}
 
@@ -482,6 +499,21 @@ const handleSaveApprovalStatus = (activityId, status) => {
                 }}
                 onBack={handleBackToDashboard}
                 onSaveApprovalStatus={handleSaveApprovalStatus}
+                onSendRevisions={() => setCurrentView('pdReviseActivity')}
+              />
+            )}
+
+            {currentView === 'pdReviseActivity' && (
+              <PdReviseActivity 
+              onBack={handleBackToDashboard}
+              onViewActivity={handleViewActivity}
+              />
+            )}
+
+            {currentView === 'pdRecievedActivities' && (
+              <PdRecievedActivities 
+              onBack={handleBackToDashboard}
+              onViewActivity={handleViewActivity}
               />
             )}
               
