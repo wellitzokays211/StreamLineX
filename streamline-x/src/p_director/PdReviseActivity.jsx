@@ -15,7 +15,7 @@ const PdReviseActivity = ({ activity, onBack }) => {
     <div className="content">
       <BackButton onClick={onBack} />
       
-      <h2 style={{ marginBottom: '20px' }}>Revise Activity</h2>
+      <h1 style={{ marginBottom: '20px', fontWeight: 'bold' }}>Revise Activity</h1>
       <h1>Activity ID: {activity?.id || '001'}</h1>
       
       <div className="card" style={{ marginBottom: '20px' }}>

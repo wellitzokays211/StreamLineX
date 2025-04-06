@@ -12,7 +12,7 @@ import ApprovedActivities from './ApprovedActivities';
 import PendingActivities from './PendingActivities';
 import AssignActivity from './AssignActivity';
 
-// Icons components (same as before)
+// Icons components
 const BudgetIcon = () => (
   <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
     <path d="M12,2C6.47,2,2,6.47,2,12s4.47,10,10,10s10-4.47,10-10S17.53,2,12,2z M14.5,14h-3v3h-2v-3h-3v-2h3V9h2v3h3V14z"/>
@@ -60,6 +60,19 @@ const AssignIcon = () => (
     <path d="M12,12c2.21,0,4-1.79,4-4s-1.79-4-4-4S8,5.79,8,8S9.79,12,12,12z M12,14c-2.67,0-8,1.34-8,4v2h16v-2C20,15.34,14.67,14,12,14z"/>
   </svg>
 );
+
+// Format currency utility function
+// This function formats a number to a currency string with commas and two decimal places
+// It uses the toLocaleString method to format the number according to the US locale.
+// The function takes a value as input and returns a formatted string. If the value is not provided, it returns an empty string.
+const formatCurrency = (value) => {
+  if (!value && value !== 0) return '';
+  
+  return parseFloat(value).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+};
 
 const App = () => {
   const [currentScreen, setCurrentScreen] = useState('dashboard');
@@ -151,96 +164,98 @@ const Dashboard = ({
   onAssignActivity,
   }) => {
 
-  return (  
-    <div className="content">
-      <h1>Dashboard</h1>
-          
-      <div className="stats-row">
-        <div className="stat-card">
-          <div className="stat-content">
-              <div>
-                <div className="stat-title">Estimated Annual Budget</div>
-                <div className="stat-value">
-                  Rs. {currentBudget.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                </div>
-                <div className="stat-action">
-                  <a href="#" className="change-budget" onClick={(e) => {
-                    e.preventDefault();
-                    onChangeBudget();
-                  }}>Change Budget</a>
-                </div>
-              </div>
-              <div className="stat-icon budget-icon">
-                <BudgetIcon />
-              </div>
-            </div>
-          </div>
-          
+    return (  
+      <div className="content">
+        <h1>Dashboard</h1>
+            
+        <div className="stats-row">
           <div className="stat-card">
             <div className="stat-content">
-              <div>
-                <div className="stat-title">Approved</div>
-                <div className="stat-value" onClick={onViewApprovedActivities} style={{cursor: 'pointer'}}>60</div>
+                <div>
+                  <div className="stat-title">Estimated Annual Budget</div>
+                  <div className="stat-value">
+                    Rs. {formatCurrency(currentBudget)}
+                  </div>
+                  <div className="stat-action">
+                    <a href="#" className="change-budget" onClick={(e) => {
+                      e.preventDefault();
+                      onChangeBudget();
+                    }}>Change Budget</a>
+                  </div>
+                </div>
+                <div className="stat-icon budget-icon">
+                  <BudgetIcon />
+                </div>
               </div>
-              <div className="stat-icon approved-icon">
-                <ApprovedIcon />
+            </div>
+            
+            <div className="smaller-stats">
+              <div className="stat-card">
+                <div className="stat-content">
+                  <div>
+                    <div className="stat-title">Approved</div>
+                    <div className="stat-value" onClick={onViewApprovedActivities} style={{cursor: 'pointer'}}>60</div>
+                  </div>
+                  <div className="stat-icon approved-icon">
+                    <ApprovedIcon />
+                  </div>
+                </div>
+              </div>
+              
+              <div className="stat-card">
+                <div className="stat-content">
+                  <div>
+                    <div className="stat-title">Pending</div>
+                    <div className="stat-value" onClick={onViewPendingActivities} style={{cursor: 'pointer'}}>40</div>
+                  </div>
+                  <div className="stat-icon pending-icon">
+                    <PendingIcon />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+            
+          <div className="actions-row">
+            <div className="action-card">
+              <button className="action-button" onClick={onViewActivityList}>
+                <span>View Activity List</span>
+                <ActivityIcon />
+              </button>
+            </div>
+              
+            <div className="action-card">
+              <button className="action-button" onClick={onViewPriorityList}>
+                <span>View Priority List</span>
+                <PriorityIcon />
+              </button>
+            </div>
+          </div>
           
-          <div className="stat-card">
-            <div className="stat-content">
-              <div>
-                <div className="stat-title">Pending</div>
-                <div className="stat-value" onClick={onViewPendingActivities} style={{cursor: 'pointer'}}>40</div>
-              </div>
-              <div className="stat-icon pending-icon">
-                <PendingIcon />
-              </div>
+          <div className="actions-row">
+            <div className="action-card">
+              <button className="action-button">
+                <span>View Annual Development Plan</span>
+                <PlanIcon />
+              </button>
+            </div>
+            
+            <div className="action-card blue">
+              <button className="action-button blue" onClick={onAddActivity}>
+                <span>Add Activity</span>
+                <AddIcon />
+              </button>
+            </div>
+              
+            <div className="action-card blue">
+              <button className="action-button blue" onClick={onAssignActivity}>
+                <span>Assign Activity</span>
+                <AssignIcon />
+              </button>
             </div>
           </div>
         </div>
-          
-        <div className="actions-row">
-          <div className="action-card">
-            <button className="action-button" onClick={onViewActivityList}>
-              <span>View Activity List</span>
-              <ActivityIcon />
-            </button>
-          </div>
-            
-          <div className="action-card">
-            <button className="action-button" onClick={onViewPriorityList}>
-              <span>View Priority List</span>
-              <PriorityIcon />
-            </button>
-          </div>
-        </div>
-        
-        <div className="actions-row">
-          <div className="action-card">
-            <button className="action-button">
-              <span>View Annual Development Plan</span>
-              <PlanIcon />
-            </button>
-          </div>
-          
-          <div className="action-card blue">
-            <button className="action-button blue" onClick={onAddActivity}>
-              <span>Add Activity</span>
-              <AddIcon />
-            </button>
-          </div>
-            
-          <div className="action-card blue">
-            <button className="action-button blue" onClick={onAssignActivity}>
-              <span>Assign Activity</span>
-              <AssignIcon />
-            </button>
-          </div>
-        </div>
-      </div>
-  );
-};
+    );
+  };
 
 export default App;
