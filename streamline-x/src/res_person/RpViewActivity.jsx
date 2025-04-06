@@ -4,7 +4,7 @@ import '../CommonStyling.css';
 import './ResponsiblePersonStyling.css';
 import { BackButton } from '../Header'; // Import the reusable BackButton
 
-const ViewActivity = ({ activity, onBack }) => {
+const RpViewActivity = ({ activity, onBack }) => {
   // Handle null activity case with a loading state
   if (!activity) {
     return (
@@ -107,4 +107,4 @@ const ViewActivity = ({ activity, onBack }) => {
   );
 };
 
-export default ViewActivity;
+export default RpViewActivity;

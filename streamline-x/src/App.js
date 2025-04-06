@@ -153,7 +153,7 @@ function App() {
       setCurrentView('seViewActivity');
     } else if (currentRole === 'provincial-director') {
       setCurrentView('pdViewActivity');
-    } else {
+    } else if (currentRole === 'development-officer'){
       setCurrentView('viewActivity');
     }
   };
