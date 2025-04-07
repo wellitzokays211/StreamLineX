@@ -12,7 +12,7 @@ export const Sidebar = ({ onHomeClick, currentRole }) => {
   // Adding the role as a class to apply the right styling
   return (
     <div className={`sidebar ${currentRole}`}>
-      <div className="logo"onClick={onHomeClick}>StreamLineX</div>
+      <div className="logo"onClick={onHomeClick} style={{ cursor: 'pointer' }}>StreamLineX</div>
     </div>
   );
 };

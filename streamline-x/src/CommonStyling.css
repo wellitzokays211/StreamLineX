@@ -44,8 +44,8 @@
   
   .main-content {
     flex: 1;
-    margin-left: 240px;
-    width: calc(100% - 240px);
+    margin-left: 200px;
+    width: calc(100% - 200px);
     display: flex;
     flex-direction: column;
     margin-top: 0;

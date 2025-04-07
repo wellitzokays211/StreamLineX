@@ -71,7 +71,7 @@ const ActivityList = ({ onBack }) => {
                     <td>{activity.description}</td>
                     <td>{activity.district}</td>
                     <td>
-                      <button className="view-button">View</button>
+                      <button className="view-button" onClick={() => onViewActivity(activity)} >View</button>
                     </td>
                   </tr>
                 ))}
