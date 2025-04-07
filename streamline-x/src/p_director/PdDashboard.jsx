@@ -35,13 +35,26 @@ const ReceivedIcon = () => (
   </svg>
 );
 
+// Format currency utility function
+// This function formats a number to a currency string with commas and two decimal places
+// It uses the toLocaleString method to format the number according to the US locale.
+// The function takes a value as input and returns a formatted string. If the value is not provided, it returns an empty string.
+const formatCurrency = (value) => {
+  if (!value && value !== 0) return '';
+  
+  return parseFloat(value).toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+};
+
 const PdDashboard = ({ 
   onViewApprovedActivities, 
   onViewPendingActivities, 
   onViewActivity,
   onViewRecievedActivities}) => {
     
-  const [budget, setBudget] = useState(3000000.00);
+  const [budget] = useState(3000000.00);
   const [pendingActivities] = useState([
     { id: 'AC001', description: 'Roof Construction of ABC M.V.', date: 'July-02' },
     { id: 'AC004', description: 'Computer Lab Renovation of ABC M.V.', date: 'April-24' }
@@ -57,7 +70,7 @@ const PdDashboard = ({
             <div>
               <div className="stat-title">Estimated Annual Budget</div>
               <div className="stat-value">
-                Rs. {budget.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              Rs. {formatCurrency(budget)}
               </div>
             </div>
             <div className="stat-icon budget-icon">
