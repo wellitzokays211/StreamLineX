@@ -10,12 +10,11 @@ const ActivityStatus = ({ status }) => {
   };    
 
   return (
-    <div className="status-panel pd" style={{ marginBottom: '30px', backgroundColor: '#ffffff', padding: '10px', borderRadius: '5px' }}>
-      <span className="status-label" style={{fontWeight:'bold', fontSize: '16px', padding: '2px 10px'}}>Approval Status: </span>
+    <div className="status-panel pd">
+      <span className="status-label" >Approval Status: </span>
       <span 
         className="status-value" 
         style={{ 
-          fontWeight: 'bold', 
           color: statusColors[status] || '#555'
         }}
       >
@@ -83,7 +82,7 @@ const PdViewActivity = ({ activity, onBack }) => {
       
       <h1>Activity ID: {activity?.id || '001'}</h1>
       
-      <div className="card" style={{ marginBottom: '20px', padding: '10px' }}>
+      <div className="card">
         <table style={tableStyle}>
           <tbody>
             <tr>
@@ -119,14 +118,7 @@ const PdViewActivity = ({ activity, onBack }) => {
           disabled={approvalStatus === 'Approved'}
           style={{ 
             backgroundColor: approvalStatus === 'Approved' ? '#aaa' : '#E7AE28',
-            cursor: approvalStatus === 'Approved' ? 'not-allowed' : 'pointer',
-            padding: '12px 20px',
-            borderRadius: '10px',
-            border: 'none',
-            color: 'white',
-            fontWeight: 'bold',
-            fontSize: '14px',
-            transition: 'background-color 0.3s ease'
+            cursor: approvalStatus === 'Approved' ? 'not-allowed' : 'pointer'
           }}
           onMouseOver={(e) => {
             if (approvalStatus !== 'Approved') {
@@ -143,25 +135,7 @@ const PdViewActivity = ({ activity, onBack }) => {
         </button>
         
         <button 
-          className="btn btn-secondary"
-          onClick={handleSendRevisions}
-          style={{ 
-            backgroundColor: '#f1f1f1',
-            padding: '12px 20px',
-            borderRadius: '10px',
-            border: 'none',
-            color: '#333',
-            fontWeight: 'bold',
-            fontSize: '14px',
-            transition: 'background-color 0.3s ease'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.backgroundColor = '#d9d9d9'; // Darker shade for hover
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.backgroundColor = '#f1f1f1';
-          }}
-        >
+          className="btn-secondary" onClick={handleSendRevisions}>
           Send Revisions
         </button>
       </div>
@@ -184,65 +158,31 @@ const PdReviseActivity = ({ activity, onBack }) => {
     <div className="content">
       <BackButton onClick={onBack} />
       
-      <h2 style={{ marginBottom: '20px' }}>Revise Activity</h2>
+      <h2>Revise Activity</h2>
       <h1>Activity ID: {activity?.id || '001'}</h1>
       
-      <div className="card" style={{ marginBottom: '20px' }}>
+      <div className="card">
         <div className="form-group">
-          <div style={{ marginBottom: '10px', fontWeight: 'bold' }}>Enter Your Message:</div>
+          <div>Enter Your Message:</div>
           <textarea 
             className="form-input" 
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             rows={5}
-            style={{ width: '100%', padding: '10px', borderRadius: '5px' }}
           />
         </div>
       </div>
       
       <div style={{ display: 'flex', justifyContent: 'center', gap: '20px' }}>
         <button 
-          className="btn-primary"
-          onClick={handleSendRevisions}
-          style={{ 
-            backgroundColor: '#4a90e2',
-            padding: '12px 20px',
-            borderRadius: '5px',
-            border: 'none',
-            color: 'white',
-            fontWeight: 'bold',
-            fontSize: '14px',
-            transition: 'background-color 0.3s ease'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.backgroundColor = '#3a73b5'; // Darker shade for hover
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.backgroundColor = '#4a90e2';
-          }}
+          className="btn-give-revisions" onClick={handleSendRevisions}
         >
           Send Revisions
         </button>
         
         <button 
-          className="btn btn-secondary"
+          className="btn-cancel-revisions"
           onClick={onBack}
-          style={{ 
-            backgroundColor: '#e74c3c',
-            padding: '12px 20px',
-            borderRadius: '5px',
-            border: 'none',
-            color: 'white',
-            fontWeight: 'bold',
-            fontSize: '14px',
-            transition: 'background-color 0.3s ease'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.backgroundColor = '#c0392b'; // Darker shade for hover
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.backgroundColor = '#e74c3c';
-          }}
         >
           Cancel
         </button>
