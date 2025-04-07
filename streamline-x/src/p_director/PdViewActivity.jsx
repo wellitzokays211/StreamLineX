@@ -53,39 +53,61 @@ const PdViewActivity = ({ activity, onBack }) => {
     );
   }
 
+  // Table styles
+  const tableStyle = {
+    width: '100%',
+    borderCollapse: 'collapse'
+  };
+  
+  const tdStyle = {
+    padding: '12px 8px',
+    borderBottom: '1px solid #e0e0e0'
+  };
+  
+  const tdLabelStyle = {
+    ...tdStyle,
+    fontWeight: 'bold',
+    width: '30%',
+    verticalAlign: 'top'
+  };
+  
+  const tdValueStyle = {
+    ...tdStyle,
+    color: '#333',
+    verticalAlign: 'top'
+  };
+
   return (
     <div className="content">
       <BackButton onClick={onBack} />
       
       <h1>Activity ID: {activity?.id || '001'}</h1>
       
-      <div className="card" style={{ marginBottom: '20px' }}>
-        <div style={{ marginBottom: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
-            <div style={{ fontWeight: 'bold' }}>Activity Description:</div>
-            <div>{activity?.description || 'Roof Construction of ABC M.V.'}</div>
-          </div>
-          
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
-            <div style={{ fontWeight: 'bold' }}>District:</div>
-            <div>{activity?.district || 'Kandy'}</div>
-          </div>
-          
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
-            <div style={{ fontWeight: 'bold' }}>Broad Activity Area:</div>
-            <div>{activity?.area || 'Construct School Buildings'}</div>
-          </div>
-          
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
-            <div style={{ fontWeight: 'bold' }}>Sub Component:</div>
-            <div>{activity?.subComponent || 'Strengthening education administration and management at provincial, and zonal levels'}</div>
-          </div>
-          
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
-            <div style={{ fontWeight: 'bold' }}>Component:</div>
-            <div>{activity?.component || 'Strengthen towards education governance and service delivery of education'}</div>
-          </div>
-        </div>
+      <div className="card" style={{ marginBottom: '20px', padding: '10px' }}>
+        <table style={tableStyle}>
+          <tbody>
+            <tr>
+              <td style={tdLabelStyle}>Activity Description:</td>
+              <td style={tdValueStyle}>{activity?.description || 'Roof Construction of ABC M.V.'}</td>
+            </tr>
+            <tr>
+              <td style={tdLabelStyle}>District:</td>
+              <td style={tdValueStyle}>{activity?.district || 'Kandy'}</td>
+            </tr>
+            <tr>
+              <td style={tdLabelStyle}>Broad Activity Area:</td>
+              <td style={tdValueStyle}>{activity?.area || 'Construct School Buildings'}</td>
+            </tr>
+            <tr>
+              <td style={tdLabelStyle}>Sub Component:</td>
+              <td style={tdValueStyle}>{activity?.subComponent || 'Strengthening education administration and management at provincial, and zonal levels'}</td>
+            </tr>
+            <tr>
+              <td style={tdLabelStyle}>Component:</td>
+              <td style={tdValueStyle}>{activity?.component || 'Strengthen towards education governance and service delivery of education'}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       
       <ActivityStatus status={approvalStatus} />
@@ -103,7 +125,18 @@ const PdViewActivity = ({ activity, onBack }) => {
             border: 'none',
             color: 'white',
             fontWeight: 'bold',
-            fontSize: '14px'
+            fontSize: '14px',
+            transition: 'background-color 0.3s ease'
+          }}
+          onMouseOver={(e) => {
+            if (approvalStatus !== 'Approved') {
+              e.currentTarget.style.backgroundColor = '#b58a1f'; // Darker shade for hover
+            }
+          }}
+          onMouseOut={(e) => {
+            if (approvalStatus !== 'Approved') {
+              e.currentTarget.style.backgroundColor = '#E7AE28';
+            }
           }}
         >
           Approve Activity
@@ -119,7 +152,14 @@ const PdViewActivity = ({ activity, onBack }) => {
             border: 'none',
             color: '#333',
             fontWeight: 'bold',
-            fontSize: '14px'
+            fontSize: '14px',
+            transition: 'background-color 0.3s ease'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.backgroundColor = '#d9d9d9'; // Darker shade for hover
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.backgroundColor = '#f1f1f1';
           }}
         >
           Send Revisions
@@ -171,7 +211,14 @@ const PdReviseActivity = ({ activity, onBack }) => {
             border: 'none',
             color: 'white',
             fontWeight: 'bold',
-            fontSize: '14px'
+            fontSize: '14px',
+            transition: 'background-color 0.3s ease'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.backgroundColor = '#3a73b5'; // Darker shade for hover
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.backgroundColor = '#4a90e2';
           }}
         >
           Send Revisions
@@ -187,7 +234,14 @@ const PdReviseActivity = ({ activity, onBack }) => {
             border: 'none',
             color: 'white',
             fontWeight: 'bold',
-            fontSize: '14px'
+            fontSize: '14px',
+            transition: 'background-color 0.3s ease'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.backgroundColor = '#c0392b'; // Darker shade for hover
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.backgroundColor = '#e74c3c';
           }}
         >
           Cancel

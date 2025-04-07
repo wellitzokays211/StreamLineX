@@ -94,7 +94,7 @@ function App() {
       setCurrentView('seActivityList');
     } else {
       // Navigate to the development officer activity list
-      alert('View Activity List clicked!');
+      console.log('View Activity List clicked!');
     }
   };
 
@@ -103,7 +103,7 @@ function App() {
     if (currentRole === 'responsible-person') {
       setCurrentView('rpAddActivity');
     } else {
-      alert('Add Activity clicked!');
+      console.log('Add Activity clicked!');
     }
   };
 
@@ -287,7 +287,7 @@ const handleRecievedActivities = (activity) => {
         <>
           <Sidebar onHomeClick={handleReturnToRoleSelection} currentRole={currentRole} />
           <div className="main-content">
-            <Header 
+          <Header 
               onNotificationClick={handleNotificationClick}
               onMessageClick={handleMessageClick}
               onProfileClick={handleProfileClick}
@@ -324,7 +324,7 @@ const handleRecievedActivities = (activity) => {
               {currentView === 'viewActivity' && (
                 <ViewActivity 
                   activity={selectedActivity}
-                  onBack={handleBackToApprovedActivities}
+                  onBack={handleBackToDashboard}
                 />
               )}
               {currentView === 'assignActivity' && (
@@ -342,6 +342,13 @@ const handleRecievedActivities = (activity) => {
                 <PendingActivities 
                   onBack={handleBackToDashboard}
                   onRequestApproval={handleRequestApprovalFromPending}
+                />
+              )}
+
+              {currentView === 'activityList' && (
+                <ViewActivity
+                  onBack={handleBackToDashboard}
+                  onViewActivity={handleViewActivity}
                 />
               )}
               

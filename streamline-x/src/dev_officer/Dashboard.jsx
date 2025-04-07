@@ -121,7 +121,10 @@ const App = () => {
           />
         );
       case 'activityList':
-        return <ActivityList onBack={() => navigateTo('dashboard')} />;
+        return <ActivityList 
+          onBack={() => navigateTo('dashboard')} 
+          onViewActivity={handleViewActivity} 
+        />;
       case 'addActivity':
         return <AddActivity onBack={() => navigateTo('dashboard')} />;
       case 'budgetUpdate':

@@ -11,12 +11,31 @@ const SeBudgetSetting = ({ activity, onBack, currentBudget, onSaveBudget }) => {
   
   // Format number with commas
   const formatCurrency = (amount) => {
-    return parseFloat(amount).toLocaleString('en-IN');
+    return parseFloat(amount).toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
   };
 
   const handleBudgetChange = (e) => {
-    // Only allow numbers and decimal points
-    const value = e.target.value.replace(/[^0-9.]/g, '');
+    // Getting the value without any non-numeric characters except the first decimal point
+    const inputValue = e.target.value;
+    
+    // Removing all non-numeric characters except dots
+    let value = inputValue.replace(/[^0-9.]/g, '');
+    
+    // One decimal point only one decimal point
+    const parts = value.split('.');
+    if (parts.length > 2) {
+      value = parts[0] + '.' + parts.slice(1).join('');
+    }
+    
+    // Limit to two decimal places if there's a decimal point
+    if (value.includes('.')) {
+      const [whole, decimal] = value.split('.');
+      value = whole + '.' + decimal.slice(0, 2);
+    }
+    
     setEnteredBudget(value);
     setError('');
   };
@@ -36,12 +55,12 @@ const SeBudgetSetting = ({ activity, onBack, currentBudget, onSaveBudget }) => {
       return;
     }
     
-    // If validation passes, save budget
+    // If validation passes, save budget with exactly two decimal places
     if (onSaveBudget) {
-      onSaveBudget(activity.id, budgetValue);
+      onSaveBudget(activity.id, budgetValue.toFixed(2));
     }
     
-    // Show success message
+    // Show success message with formatted currency
     setSuccessMessage(`Budget of Rs. ${formatCurrency(budgetValue)} has been set for this activity`);
     setShowForm(false);
     

@@ -16,7 +16,8 @@ const BackIcon = () => (
 
 const ActivityList = ({ onBack }) => {
   const [activeTab, setActiveTab] = useState('assigned');
-  
+  const [selectedActivity, setSelectedActivity] = useState(null); // State to store the selected activity
+
   // Sample data - in a real app this would likely come from props or an API
   const activities = [
     { id: 'AC001', description: 'Roof Construction of ABC M.V.', district: 'Kandy', assigned: true },
@@ -30,55 +31,83 @@ const ActivityList = ({ onBack }) => {
     activeTab === 'assigned' ? activity.assigned : !activity.assigned
   );
 
+  // Handle "View" button click
+  const handleViewActivity = (activity) => {
+    setSelectedActivity(activity);
+  };
+
+  // Handle closing the activity details
+  const handleCloseDetails = () => {
+    setSelectedActivity(null);
+  };
+
   return (              
-        <div className="content">
-          {/* reusable BackButton */}
-          <BackButton onClick={onBack} text="Back" />
-          
-          <div className="activity-list-header">
-            <h1>View Activity List</h1>
-          </div>
-          
-          <div className="activity-tabs">
-            <button 
-              className={`tab-button ${activeTab === 'assigned' ? 'active' : ''}`}
-              onClick={() => setActiveTab('assigned')}
-            >
-              Assigned
-            </button>
-            <button 
-              className={`tab-button ${activeTab === 'unassigned' ? 'active' : ''}`}
-              onClick={() => setActiveTab('unassigned')}
-            >
-              Unassigned
-            </button>
-          </div>
-          
-          <div className="activity-table-container">
-            <table className="activity-table">
-              <thead>
-                <tr>
-                  <th>Activity ID</th>
-                  <th>Activity Description</th>
-                  <th>District</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredActivities.map(activity => (
-                  <tr key={activity.id}>
-                    <td>{activity.id}</td>
-                    <td>{activity.description}</td>
-                    <td>{activity.district}</td>
-                    <td>
-                      <button className="view-button" onClick={() => onViewActivity(activity)} >View</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+    <div className="content">
+      {/* reusable BackButton */}
+      <BackButton onClick={onBack} text="Back" />
+      
+      <div className="activity-list-header">
+        <h1>View Activity List</h1>
+      </div>
+      
+      <div className="activity-tabs">
+        <button 
+          className={`tab-button ${activeTab === 'assigned' ? 'active' : ''}`}
+          onClick={() => setActiveTab('assigned')}
+        >
+          Assigned
+        </button>
+        <button 
+          className={`tab-button ${activeTab === 'unassigned' ? 'active' : ''}`}
+          onClick={() => setActiveTab('unassigned')}
+        >
+          Unassigned
+        </button>
+      </div>
+      
+      <div className="activity-table-container">
+        <table className="activity-table">
+          <thead>
+            <tr>
+              <th>Activity ID</th>
+              <th>Activity Description</th>
+              <th>District</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredActivities.map(activity => (
+              <tr key={activity.id}>
+                <td>{activity.id}</td>
+                <td>{activity.description}</td>
+                <td>{activity.district}</td>
+                <td>
+                  <button 
+                    className="view-button" 
+                    onClick={() => handleViewActivity(activity)}
+                  >
+                    View
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Activity Details Modal */}
+      {selectedActivity && (
+        <div className="activity-details-modal">
+          <div className="modal-content">
+            <h2>Activity Details</h2>
+            <p><strong>ID:</strong> {selectedActivity.id}</p>
+            <p><strong>Description:</strong> {selectedActivity.description}</p>
+            <p><strong>District:</strong> {selectedActivity.district}</p>
+            <button className="close-button" onClick={handleCloseDetails}>Close</button>
           </div>
         </div>
+      )}
+    </div>
   );
 };
 

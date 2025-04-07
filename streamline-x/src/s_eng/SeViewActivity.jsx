@@ -64,7 +64,7 @@ const SeViewActivity = ({ activity, onBack, onSetBudget, onSetPriority, onSetSta
         {activity.budget && (
           <div className="activity-detail-row">
             <div className="detail-label">Allocated Budget:</div>
-            <div className="detail-value highlight">Rs. {parseFloat(activity.budget).toLocaleString('en-IN')}</div>
+            <div className="detail-value highlight">Rs. {parseFloat(activity.budget).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</div>
           </div>
         )}
         
